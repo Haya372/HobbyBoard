@@ -1,0 +1,26 @@
+version: '3'
+services: 
+    api_server:
+        container_name: api_server
+        build: 
+            context: ./backend
+        tty: true
+        ports: 
+            - 3000:3000
+        depends_on: 
+            - db
+    db:
+        image: mysql:5.7
+        container_name: db
+        environment:
+            MYSQL_DATABASE: 'HobbyBoardApp'
+            MYSQL_ROOT_PASSWORD: 'password'
+        ports:
+            - 3306:3306
+    front_server:
+        container_name: front_server
+        build:
+            context: ./frontend
+        tty: true
+        ports: 
+            - 8080:8080
