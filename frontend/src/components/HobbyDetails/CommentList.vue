@@ -8,7 +8,7 @@
     >
     <div class="user">
         {{ item.name }}
-    </div><br/>
+    </div>
     <div class="comment">
         {{item.content}}
     </div>
@@ -23,3 +23,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.scroller{
+    text-align: left;
+    margin-left: 20%;
+}
+</style>
