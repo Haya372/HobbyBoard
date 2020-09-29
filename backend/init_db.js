@@ -19,6 +19,19 @@ const init = async function() {
         sex: 'male',
         age: '22'
     });
+    await models.Gather.create({
+        user_id: 1,
+        title: 'test',
+        content: 'test'
+    });
+    await models.GatherParticipant.create({
+        gather_id: 1,
+        user_id: 1
+    });
+    await models.GatherParticipant.create({
+        gather_id: 1,
+        user_id: 2
+    });
 }
 
 init();

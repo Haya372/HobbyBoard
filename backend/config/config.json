@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "password",
+    "password": "",
     "database": "HobbyBoardApp",
-    "host": "db",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
