@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HobbyDetails from '../views/HobbyDetails.vue'
+import EditHobby from '../views/EditHobby.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const routes = [
     path: '/content',
     name: 'content',
     component: HobbyDetails
+  },
+  {
+    path: '/edithobby',
+    name: 'edithobby',
+    component: EditHobby
   }
 ]
 

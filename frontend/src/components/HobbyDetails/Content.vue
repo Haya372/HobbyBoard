@@ -1,29 +1,59 @@
 <template>
     <div class="content">
         <div class="title">
-            <h1>{{title}}</h1>
+            <h1>{{content.title}}</h1>
             <div class="editbutton">
-                <button v-on:click="edit">編集</button>
+                <router-link to="/edithobby">編集</router-link>
             </div>
         </div>
-        <div class="editor">投稿者： {{username}}</div>
-        <p class="text">{{content}}</p><br/>
+        <div class="editor">投稿者： {{content.username}}</div>
+        <p class="text">{{content.content}}</p>
+        <div class="reputation">
+            <div class="good">
+                <button v-on:click="clickgood">いいね</button>：{{ content.good }}
+            </div>
+            <div class="bad">
+                <button v-on:click="clickbad">よくないね</button>：{{ content.bad }}
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: 'Content',
+    props: ['detail'],
     data: function(){
         return {
-            title: 'title',
-            username: 'user1',
-            content: 'test'
+            content: this.detail
         };
     },
     methods: {
         edit: function(){
-            alert('edit button clicked')
+            this.content.title = 'change';
+            this.$emit('edited', this.content);
+        },
+        clickgood: function(){
+            this.axios.put('/api/good/'+this.content.id)
+            .then((res) => {
+                if(res.status === 200){
+                    this.content.good++;
+                }else{
+                    alert('Server Error');
+                }
+            })
+            .catch((e) => alert(e));
+        },
+        clickbad: function(){
+            this.axios.put('/api/bad/'+this.content.id)
+            .then((res) => {
+                if(res.status === 200){
+                    this.content.bad++;
+                }else{
+                    alert('Server Error');
+                }
+            })
+            .catch((e) => alert(e));
         }
     }
 }
@@ -56,5 +86,15 @@ h1 {
 
 .text{
     font-size: 28px;
+}
+
+.reputation {
+    display: flex;
+    padding-bottom: 60px;
+    padding-top: 30px;
+}
+
+.good {
+    margin-right: 20%;
 }
 </style>
