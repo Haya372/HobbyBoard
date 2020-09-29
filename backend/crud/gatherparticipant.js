@@ -17,6 +17,7 @@ const participate_gather = async function(gather_id, user_id, res){
         await t.commit();
         res.status(200).send(members[0]);
     }catch(err){
+        await t.rollback();
         res.sendStatus(500);
     } 
 }
