@@ -9,7 +9,9 @@
             <textarea class="content" v-model="item.content"></textarea>
         </div>
         <input type="checkbox" class="secret" v-model="item.secret">匿名<br/>
-        <button v-on:click="submit">投稿</button>
+        <router-link to="content">
+            <button v-bind:disabled="isMovable" v-on:click="submit">投稿</button>
+        </router-link>
     </div>
 </template>
 
@@ -36,6 +38,11 @@ export default {
         return {
             item: this.hobby
         };
+    },
+    computed: {
+        isMovable: function(){
+            return (this.item.title.length == 0) || (this.item.content.length == 0);
+        }
     },
     methods: {
         submit: function(){
