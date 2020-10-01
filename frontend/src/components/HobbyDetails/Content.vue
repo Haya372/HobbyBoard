@@ -2,8 +2,9 @@
     <div class="content">
         <div class="title">
             <h1>{{content.title}}</h1>
+            <!--ユーザーの判別条件をv-ifでつける-->
             <div class="editbutton">
-                <router-link to="/edithobby">編集</router-link>
+                <router-link to="/edithobby" v-bind:hobby="content">編集</router-link>
             </div>
         </div>
         <div class="editor">投稿者： {{content.username}}</div>
@@ -22,7 +23,9 @@
 <script>
 export default {
     name: 'Content',
-    props: ['detail'],
+    props: {
+        detail: Object
+    },
     data: function(){
         return {
             content: this.detail
@@ -54,6 +57,11 @@ export default {
                 }
             })
             .catch((e) => alert(e));
+        }
+    },
+    watch: {
+        detail: function(newValue){
+            this.content = newValue;
         }
     }
 }

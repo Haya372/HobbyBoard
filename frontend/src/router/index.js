@@ -28,7 +28,8 @@ const routes = [
   {
     path: '/edithobby',
     name: 'edithobby',
-    component: EditHobby
+    component: EditHobby,
+    props: true
   }
 ]
 

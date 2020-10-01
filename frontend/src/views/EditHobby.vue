@@ -2,13 +2,13 @@
     <div class="edit">
         <div class="title">
             <p>タイトル</p>
-            <input type="text" v-model="title">
+            <input type="text" v-model="item.title">
         </div>
         <div class="content">
             <p>内容</p>
-            <textarea class="content" v-model="content"></textarea>
+            <textarea class="content" v-model="item.content"></textarea>
         </div>
-        <input type="checkbox" class="secret" v-model="secret">匿名<br/>
+        <input type="checkbox" class="secret" v-model="item.secret">匿名<br/>
         <button v-on:click="submit">投稿</button>
     </div>
 </template>
@@ -16,30 +16,38 @@
 <script>
 export default {
     name: 'EditHobby',
-    props: ['hobby'],
-    data: function(){
-        if(this.hobby){
-            return {
-                title: '',
-                content: '',
-                secret: false
-            }
-        }else{
-            return {
-                title: this.hobby.title,
-                content: this.hobby.content,
-                secret: false
+    props: {
+        hobby: {
+            type: Object,
+            default: function(){
+                return {
+                    id: -1,
+                    user_id: this.user_id, // need to change
+                    title: '',
+                    content: '',
+                    good: 0,
+                    bad: 0,
+                    secret: false,
+                };
             }
         }
     },
+    data: function(){
+        return {
+            item: this.hobby
+        };
+    },
     methods: {
         submit: function(){
-            this.axios.post('/api/submit/hobby',{
-                title: this.title,
-                content: this.content,
-                user_id: this.user_id,
-                secret: this.secret
-            }).then((res) => {
+            if(!this.item.title){
+                alert('タイトルを入力してください');
+                return;
+            }
+            if(!this.item.content){
+                alert('本文を入力してください');
+                return;
+            }
+            this.axios.post('/api/submit/hobby', this.item).then((res) => {
                 if(res.status === 200){
                     alert('OK');
                 }else{

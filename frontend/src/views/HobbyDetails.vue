@@ -1,7 +1,7 @@
 <template>
     <div class="HobbyDetail">
         <Content v-bind:detail="hobby" v-on:edited="onedited"></Content>
-        <CommentList v-bind:list="testData" v-bind:id="hobby.id"></CommentList>
+        <CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList>
         <div class="inputform">
             <input type="text" class="comment" v-model="comment">
             <div class="secret">
@@ -24,49 +24,35 @@ export default {
     },
     data: function(){
         return {
-            hobby: {
-                id: 1,
-                title: 'title',
-                username: 'user1',
-                content: 'test',
-                good: 1,
-                bad: 0
-            },
-            testData: [{
-                id: '1',
-                username: '1',
-                comment: 'hoge',
-                secret: false,
-                good: 2,
-                bad: 5
-            },{
-                id: '2',
-                username: '2',
-                comment: 'hoge',
-                secret: true,
-                good: 2,
-                bad: 5
-            },{
-                id: '3',
-                username: '3',
-                comment: 'hoge',
-                secret: true,
-                good: 2,
-                bad: 5
-            }],
+            hobby: {},
+            testData: [],
+            hobby_id: 1,  // need to change
             comment: '',
             secret: false
         };
     },
+    mounted: function(){
+        this.axios.get('/api/hobby/'+this.hobby_id)
+        .then((res) => {
+            this.hobby = res.data.hobby;
+            this.testData = res.data.comments;
+        }).catch((err) => {
+            alert(err);
+        });
+    },
     methods: {
         submitclick: function(){
+            if(!this.comment){
+                alert('コメントを入力してください');
+                return;
+            }
             this.axios.post('/api/add/comments/hobby', {
                 hobby_id: this.hobby.id,
-                user_id: this.user_id,
+                user_id: this.user_id, //need to change
                 comment: this.comment,
                 secret: this.secret
             }).then((res) => {
-                this.testData = res;
+                this.testData = res.data;
                 this.comment = '';
                 this.secret = false;
             }).catch((err) => {

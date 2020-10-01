@@ -52,6 +52,11 @@ export default {
             })
             .catch((e) => alert(e));
         }
+    },
+    watch: {
+        item: function(newValue){
+            this.comment = newValue;
+        }
     }
 }
 </script>

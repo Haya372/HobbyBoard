@@ -21,6 +21,14 @@ export default {
     },
     components: {
         Comment,
+    },
+    watch: {
+        list: function(newValue){
+            this.list = newValue;
+        },
+        id: function(newValue){
+            this.id = newValue;
+        }
     }
 }
 </script>
