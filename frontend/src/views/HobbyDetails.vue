@@ -1,7 +1,14 @@
 <template>
     <div class="HobbyDetail">
-        <Content></Content>
-        <CommentList v-bind:list="testData"></CommentList>
+        <Content v-bind:detail="hobby" v-on:edited="onedited"></Content>
+        <CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList>
+        <div class="inputform">
+            <input type="text" class="comment" v-model="comment">
+            <div class="secret">
+                <input type="checkbox" v-model="secret">匿名
+            </div>
+            <button class="submit" v-on:click="submitclick">送信</button>
+        </div>
     </div>
 </template>
 
@@ -17,20 +24,59 @@ export default {
     },
     data: function(){
         return {
-            testData: [{
-                id: '1',
-                name: '1',
-                content: 'hoge',
-            },{
-                id: '2',
-                name: '2',
-                content: 'hoge',
-            },{
-                id: '3',
-                name: '3',
-                content: 'hoge',
-            }]
+            hobby: {},
+            testData: [],
+            hobby_id: 1,  // need to change
+            comment: '',
+            secret: false
         };
+    },
+    mounted: function(){
+        this.axios.get('/api/hobby/'+this.hobby_id)
+        .then((res) => {
+            this.hobby = res.data.hobby;
+            this.testData = res.data.comments;
+        }).catch((err) => {
+            alert(err);
+        });
+    },
+    methods: {
+        submitclick: function(){
+            if(!this.comment){
+                alert('コメントを入力してください');
+                return;
+            }
+            this.axios.post('/api/add/comments/hobby', {
+                hobby_id: this.hobby.id,
+                user_id: this.user_id, //need to change
+                comment: this.comment,
+                secret: this.secret
+            }).then((res) => {
+                this.testData = res.data;
+                this.comment = '';
+                this.secret = false;
+            }).catch((err) => {
+                alert(err);
+            });
+        },
+        onedited: function(newData){
+            this.hobby = newData;
+        }
     }
 }
 </script>
+
+<style scoped>
+.inputform{
+    display: flex;
+    margin-left: 20%;
+}
+.comment {
+    text-align: left;
+    width: 60%;
+}
+.secret{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+</style>
