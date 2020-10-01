@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "passward",
+    "password": "password",
     "database": "HobbyBoardApp",
     "host": "db",
     "dialect": "mysql"

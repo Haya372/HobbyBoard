@@ -47,15 +47,34 @@ export default {
                 alert('本文を入力してください');
                 return;
             }
-            this.axios.post('/api/submit/hobby', this.item).then((res) => {
-                if(res.status === 200){
-                    alert('OK');
-                }else{
-                    alert('Server Error');
-                }
-            }).catch((err) => {
-                alert(err);
-            });
+            if(this.item.id === -1){
+                this.axios.post('/api/submit/hobby', this.item).then((res) => {
+                    if(res.status === 200){
+                        alert('OK'); // need to change
+                    }else{
+                        alert('Server Error');
+                    }
+                }).catch((err) => {
+                    alert(err);
+                });
+            }else{
+                this.axios.put('/api/update/articles/hobby/' + this.item.id, {
+                    user_id: this.user_id, // need to change
+                    title: this.item.title,
+                    content: this.item.content,
+                    good: this.item.good,
+                    bad: this.item.bad,
+                    secret: this.item.secret
+                }).then((res) => {
+                    if(res.status === 200){
+                        alert('OK'); // need to change
+                    }else{
+                        alert('Server Error');
+                    }
+                }).catch((err) => {
+                    alert(err);
+                });
+            }
         }
     }
 }
