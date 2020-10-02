@@ -88,3 +88,9 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+let crud_gather = require('../crud/gather');
+setInterval(function(){
+  crud_gather.delete_timeout_gather();
+}, 1000 * 60 * 30);

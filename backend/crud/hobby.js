@@ -1,4 +1,3 @@
-const { sequelize } = require('../models');
 const models = require('../models');
 
 const read_hobby = async function(hobby_id, res){
