@@ -46,14 +46,6 @@ export default {
     },
     methods: {
         submit: function(){
-            if(!this.item.title){
-                alert('タイトルを入力してください');
-                return;
-            }
-            if(!this.item.content){
-                alert('本文を入力してください');
-                return;
-            }
             if(this.item.id === -1){
                 this.axios.post('/api/submit/hobby', this.item).then((res) => {
                     if(res.status === 200){

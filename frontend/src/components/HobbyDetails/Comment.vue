@@ -50,7 +50,7 @@ export default {
                     alert('Server Error');
                 }
             })
-            .catch((e) => alert(e));
+            .catch((e) => console.log(e));
         }
     },
     watch: {

@@ -42,7 +42,7 @@ export default {
                 if(res.status === 200){
                     this.content.good++;
                 }else{
-                    alert('Server Error');
+                    console.log('Server Error');
                 }
             })
             .catch((e) => alert(e));
@@ -53,10 +53,10 @@ export default {
                 if(res.status === 200){
                     this.content.bad++;
                 }else{
-                    alert('Server Error');
+                    console.log('Server Error');
                 }
             })
-            .catch((e) => alert(e));
+            .catch((e) => console.log(e));
         }
     },
     watch: {

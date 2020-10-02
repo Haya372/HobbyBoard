@@ -22,7 +22,7 @@ export default {
         this.axios.get('/api/gather/lists').then((res) => {
             this.gathers = res.data;
         }).catch((err) => {
-            alert(err);
+            console.log(err);
         });
     },
     methods: {
