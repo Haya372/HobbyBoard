@@ -1,5 +1,6 @@
 const models = require('../models');
 const { Op } = require('sequelize');
+const { response } = require('express');
 
 const delete_timeout_gather = async function(){
     let one_hour_ago = new Date();
@@ -41,6 +42,16 @@ const delete_timeout_gather = async function(){
     }
 } 
 
+const read_gather = async function(res){
+    let gathers = await models.Gather.findAll();
+    let items = [];
+    gathers.forEach((gather) => {
+        items.push(gather.dataValues);
+    });
+    res.status(200).send(items);
+}
+
 module.exports = {
     delete_timeout_gather,
+    read_gather,
 }
