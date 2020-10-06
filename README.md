@@ -1,5 +1,5 @@
 ## 環境構築
-docker, docker-composeのインストール 
+docker, docker-composeのインストール  
 docker for Macってのをインストールするといいらしい 
 
 ## 起動
@@ -21,4 +21,15 @@ docker logs {containar_name}
 ```
 docker-compose exec {container_name} command
 ```
-でコンテナ上でそのコマンドを実行できる 
+でコンテナ上でそのコマンドを実行できる  
+
+## MySQLの初期化
+```
+docker exec api_server npx sequelize db:migrate
+```
+でテーブルを作成できる  
+```
+docker exec api_server node init_db.js
+```
+でダミーのユーザーデータがデータベースに保存される  
+使い勝手はあんまりよくないらしいけどデータベースの初期化とかははsequelizeっていうORMでやってる

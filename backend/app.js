@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var gatherRouter = require('./routes/gather');
+var hobbyRouter = require('./routes/hobby');
 
 var app = express();
 
@@ -21,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/gather', gatherRouter);
+app.use('/api/hobby', hobbyRouter);
 
 // test api
 app.get('/test', (req, res) => {
