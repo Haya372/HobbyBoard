@@ -7,7 +7,9 @@
             <div class="secret">
                 <input type="checkbox" v-model="secret">匿名
             </div>
-            <button class="submit" v-on:click="submitclick">送信</button>
+            <button class="submit" v-on:click="submitclick">
+                <i class="far fa-paper-plane"></i>送信
+            </button>
         </div>
     </div>
 </template>
@@ -78,5 +80,21 @@ export default {
 .secret{
     margin-left: 10px;
     margin-right: 10px;
+}
+button {
+    border-radius: 15px;
+    font-weight: bold;
+    background: #00ff8c;
+    border-color: black;
+    color: #2c3e50;
+}
+
+button:hover {
+    background-color: #008d4e;
+}
+
+i {
+    color: rgb(255, 255, 255);
+    margin-right: 5px;
 }
 </style>
