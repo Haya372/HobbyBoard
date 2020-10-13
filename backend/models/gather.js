@@ -17,6 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
+    good: DataTypes.INTEGER,
+    bad: DataTypes.INTEGER,
     secret: DataTypes.BOOLEAN
   }, {
     sequelize,

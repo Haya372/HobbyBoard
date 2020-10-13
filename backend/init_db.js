@@ -22,7 +22,10 @@ const init = async function() {
     await models.Gather.create({
         user_id: 1,
         title: 'test',
-        content: 'test'
+        content: 'test',
+        good: 0,
+        bad: 0,
+        secret: false
     });
     await models.GatherParticipant.create({
         gather_id: 1,
