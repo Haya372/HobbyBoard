@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HobbyDetails from '../views/HobbyDetails.vue'
 import EditHobby from '../views/EditHobby.vue'
+import GatherList from '../views/GatherList.vue'
+import GatherDetail from '../views/GatherDetails.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +31,18 @@ const routes = [
     path: '/edithobby',
     name: 'edithobby',
     component: EditHobby,
+    props: true
+  },
+  {
+    path: '/gather',
+    name: 'gather',
+    component: GatherList,
+    props: true
+  },
+  {
+    path: '/gather/:id',
+    name: 'gatherdetail',
+    component: GatherDetail,
     props: true
   }
 ]

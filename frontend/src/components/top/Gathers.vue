@@ -1,16 +1,22 @@
 <template>
-    <RecycleScroller
-        class="scroller"
-        :items="gathers"
-        :item-size="32"
-        key-field="id"
-        v-slot="{ item }"
-    >
-    <div class="item" v-on:click="onclick">{{ item.title }}</div>
-    </RecycleScroller>
+    <div>
+        <!-- <RecycleScroller
+            class="scroller"
+            :items="gathers"
+            :item-size="32"
+            key-field="id"
+            v-slot="{ item }"
+        >
+        <div class="item" v-on:click="onclick">{{ item.title }}</div>
+        </RecycleScroller> -->
+        テスト
+        <button @click="test">テスト</button>
+        <!-- ここにタイトルとか加えつつコメントは別にコンポーネント作る -->
+    </div>
 </template>
 
 <script>
+// propsをつくって大本のviewの中にaxiousのgetを作る詳しくはhobby見ればいけそう
 export default {
     name: 'Gathers',
     data: function(){
@@ -28,6 +34,9 @@ export default {
     methods: {
         onclick: function(){
             console.log('clicked'); // need to change
+        },
+        test() {
+            console.log("gathers.title")
         }
     }
 }

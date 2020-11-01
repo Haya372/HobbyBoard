@@ -21,8 +21,19 @@ const init = async function() {
     });
     await models.Gather.create({
         user_id: 1,
-        title: 'test',
-        content: 'test'
+        title: 'fps',
+        content: 'play with fortnite',
+        good: 0,
+        bad: 0,
+        secret: false
+    });
+    await models.Gather.create({
+        user_id: 2,
+        title: 'watch a movie',
+        content: 'watch at lias movie theater',
+        good: 0,
+        bad: 0,
+        secret: false
     });
     await models.GatherParticipant.create({
         gather_id: 1,
@@ -31,7 +42,15 @@ const init = async function() {
     await models.GatherParticipant.create({
         gather_id: 1,
         user_id: 2
-    });
+    }); 
+    await models.GatherComment.create({
+        gather_id: 1,
+        user_id: 2,
+        comment: 'hello',
+        good: 0,
+        bad: 0,
+        secret: false,
+    }); 
     await models.Hobby.create({
         user_id: 1,
         title: 'Muscle',

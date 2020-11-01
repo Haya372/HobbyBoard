@@ -17,6 +17,7 @@
                 <button v-on:click="clickbad">よくないね</button>：{{ content.bad }}
             </div>
         </div>
+        <p>{{ content }}</p>
     </div>
 </template>
 
