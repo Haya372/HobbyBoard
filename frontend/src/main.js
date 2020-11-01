@@ -4,6 +4,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import { RecycleScroller } from 'vue-virtual-scroller'
 import router from './router'
+import 'bootstrap/dist/css/bootstrap.css' // add
+import 'bootstrap-vue/dist/bootstrap-vue.css' // add
 
 Vue.use(VueAxios, axios);
 Vue.component('RecycleScroller', RecycleScroller);
