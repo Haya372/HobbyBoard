@@ -17,7 +17,6 @@
                 <button v-on:click="clickbad">よくないね</button>：{{ content.bad }}
             </div>
         </div>
-        <p>{{ content }}</p>
     </div>
 </template>
 
@@ -29,7 +28,7 @@ export default {
     },
     data: function(){
         return {
-            content: this.detail
+            content: this.detail,
         };
     },
     methods: {

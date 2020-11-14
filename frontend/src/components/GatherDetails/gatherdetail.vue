@@ -5,7 +5,7 @@
             v-for="testdetail in testdata" 
             :key="testdetail.title"
             >
-            <div v-if="testdetail.id == testid.id">
+            <div v-if="testdetail.user_id === Number(testid.id)">
                 <div class="title">
                     <h1>{{testdetail.title}}</h1>
                     <!--ユーザーの判別条件をv-ifでつける-->
@@ -13,7 +13,7 @@
                         <router-link to="/edithobby" >編集</router-link>
                     </div>
                 </div>
-                <div class="editor">投稿者： {{testdetail.username}}</div>
+                <!-- <div class="editor">投稿者： {{testdetail.username}}</div> -->
                 <p class="text">{{testdetail.content}}</p>
                 <div class="reputation">
                     <div class="good">

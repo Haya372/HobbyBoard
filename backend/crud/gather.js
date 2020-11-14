@@ -51,6 +51,8 @@ const read_gather = async function(res){
     res.status(200).send(items);
 }
 
+//コメントの取得
+
 module.exports = {
     delete_timeout_gather,
     read_gather,

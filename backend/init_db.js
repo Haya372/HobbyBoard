@@ -5,29 +5,43 @@ const init = async function() {
         password: 'pass',
         username: 'Ishii',
         sex: 'male',
-        age: '22'
+        age: '22',
     });
     await models.User.create({
         password: 'pass',
         username: 'Tanimoto',
         sex: 'male',
-        age: '22'
+        age: '22',
     });
     await models.User.create({
         password: 'pass',
         username: 'Mitomi',
         sex: 'male',
-        age: '22'
+        age: '22',
+    });
+    await models.User.create({
+        password: 'pass',
+        username: 'testUser',
+        sex: 'male',
+        age: '22',
     });
     await models.Gather.create({
-        user_id: 2,
+        user_id: 3,
         title: 'Hello',
-        content: 'World'
+        content: 'World',
+        content: 'test',
+        good: 0,
+        bad: 0,
+        secret: false
     });
     await models.Gather.create({
-        user_id: 1,
+        user_id: 4,
         title: 'Good girl',
-        content: 'Good boy'
+        content: 'Good boy',
+        content: 'test',
+        good: 0,
+        bad: 0,
+        secret: false
     });
     await models.Gather.create({
         user_id: 1,
@@ -70,7 +84,7 @@ const init = async function() {
         secret: false
     });
     await models.Hobby.create({
-        user_id: 1,
+        user_id: 2,
         title: 'Tennis',
         content: 'I wanna do it with you.',
         good: 0,

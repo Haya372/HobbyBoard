@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>募集詳細</h1>
         <GatherDetail :gatherdetail="gather"></GatherDetail>
     </div>
 </template>

@@ -8,6 +8,8 @@ import GatherDetail from '../views/GatherDetails.vue'
 import LoginView from '../views/Login.vue'
 import PostGatherView from "../views/PostGather.vue"
 import ShowHobbyView from "../views/ShowHobby.vue"
+import Search from "../views/Search"
+
 
 
 Vue.use(VueRouter)
@@ -19,17 +21,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/content',
-    name: 'content',
-    component: HobbyDetails
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   {
     path: '/edithobby',
@@ -67,7 +61,12 @@ const routes = [
     component: ShowHobbyView,
     props: true
   },
-
+  {
+    path: '/hobby/:id',
+    name: 'hobbydetail',
+    component: HobbyDetails,
+    props: true
+  },  
 ]
 
 const router = new VueRouter({

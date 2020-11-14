@@ -26,16 +26,18 @@ export default {
         return {
             hobby: {},
             testData: [],
-            hobby_id: 1,  // need to change
+            hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false
         };
     },
     mounted: function(){
+        console.log("hobby_idのparam",this.hobby_id)
         this.axios.get('/api/hobby/'+this.hobby_id)
         .then((res) => {
             this.hobby = res.data.hobby;
             this.testData = res.data.comments;
+            console.log("hobby",this.hobby)
         }).catch((err) => {
             alert(err);
         });

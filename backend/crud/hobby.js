@@ -1,5 +1,6 @@
 const models = require('../models');
 
+
 const read_hobby = async function(hobby_id, res){
     let hobby = await models.sequelize.query(
         `select Hobbies.id as id, user_id, username, title, content, good, bad, secret
@@ -21,6 +22,7 @@ const read_hobby = async function(hobby_id, res){
     });
 }
 
+
 module.exports = {
-    read_hobby
+    read_hobby,
 }

@@ -93,8 +93,6 @@ router.get('/delete/comments/:id', async function(req, res, next){
 });
 
 
-
-
 router.get('/:id', function(req, res, next){
     let id = req.params.id;
     crud_hobby.read_hobby(id, res);
