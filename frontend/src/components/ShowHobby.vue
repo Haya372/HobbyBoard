@@ -6,7 +6,7 @@
 
    <div v-for="hobby in hobby_list" :key="hobby.id">
     <div class="card">
-     <h3 class="card-header">{{ hobby.title }}</h3>
+      <router-link v-bind:to="'/hobbydetail/' + hobby.id" v-bind:id="hobby.id"><h3 class="card-header">{{ hobby.title }}</h3></router-link>
      <div class="card-body">{{ hobby.content }}</div>
     </div>
     <br>

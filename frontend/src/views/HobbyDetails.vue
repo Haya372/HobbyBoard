@@ -20,6 +20,7 @@ import CommentList from '@/components/HobbyDetails/CommentList.vue'
 
 export default {
     name: 'HobbyDetails',
+    props: ["id"],
     components: {
         Content,
         CommentList
@@ -28,7 +29,7 @@ export default {
         return {
             hobby: {},
             testData: [],
-            hobby_id: 1,  // need to change
+            hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false
         };
@@ -48,7 +49,7 @@ export default {
                 alert('コメントを入力してください');
                 return;
             }
-            this.axios.post('/api/add/comments/hobby', {
+            this.axios.post('/api/hobby/add/comments/', {
                 hobby_id: this.hobby.id,
                 user_id: this.user_id, //need to change
                 comment: this.comment,
