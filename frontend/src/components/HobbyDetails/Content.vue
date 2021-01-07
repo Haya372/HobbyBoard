@@ -4,23 +4,17 @@
             <h1>{{content.title}}</h1>
             <!--ユーザーの判別条件をv-ifでつける-->
             <div class="editbutton">
-                <router-link to="/edithobby" v-bind:hobby="content">
-                <i class="fas fa-edit"></i>編集
-            </router-link>
+                <router-link to="/edithobby" v-bind:hobby="content">編集</router-link>
             </div>
         </div>
         <div class="editor">投稿者： {{content.username}}</div>
         <p class="text">{{content.content}}</p>
         <div class="reputation">
             <div class="good">
-                <button v-on:click="clickgood">
-                    <i class="far fa-thumbs-up"></i>いいね
-                </button>：{{ content.good }}
+                <button v-on:click="clickgood">いいね</button>：{{ content.good }}
             </div>
             <div class="bad">
-                <button v-on:click="clickbad">
-                    <i class="far fa-thumbs-down"></i>よくないね
-                </button>：{{ content.bad }}
+                <button v-on:click="clickbad">よくないね</button>：{{ content.bad }}
             </div>
         </div>
     </div>
@@ -43,7 +37,7 @@ export default {
             this.$emit('edited', this.content);
         },
         clickgood: function(){
-            this.axios.put('/api/hobby/good/'+this.content.id)
+            this.axios.put('/api/good/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
                     this.content.good++;
@@ -54,7 +48,7 @@ export default {
             .catch((e) => alert(e));
         },
         clickbad: function(){
-            this.axios.put('/api/hobby/bad/'+this.content.id)
+            this.axios.put('/api/bad/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
                     this.content.bad++;
@@ -93,10 +87,6 @@ h1 {
     text-align: right;
 }
 
-.editbutton i {
-    margin-right: 5px;
-}
-
 .editor{
     clear: both;
     text-align: left;
@@ -115,23 +105,4 @@ h1 {
 .good {
     margin-right: 20%;
 }
-
-button {
-    border-radius: 15px;
-    font-weight: bold;
-    background: #00ff8c;
-    border-color: black;
-    color: #2c3e50;
-}
-
-button:hover {
-    background-color: #008d4e;
-}
-
-.reputation i {
-    color: rgb(255, 255, 255);
-    margin-right: 5px;
-}
-
-
 </style>

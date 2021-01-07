@@ -21,12 +21,6 @@ module.exports = {
       content: {
         type: Sequelize.STRING
       },
-      good: {
-        type: Sequelize.INTEGER
-      },
-      bad: {
-        type: Sequelize.INTEGER
-      },
       secret: {
         type: Sequelize.BOOLEAN
       },
