@@ -20,6 +20,16 @@ const init = async function() {
         age: '22'
     });
     await models.Gather.create({
+        user_id: 2,
+        title: 'Hello',
+        content: 'World'
+    });
+    await models.Gather.create({
+        user_id: 1,
+        title: 'Good girl',
+        content: 'Good boy'
+    });
+    await models.Gather.create({
         user_id: 1,
         title: 'test',
         content: 'test',
@@ -37,8 +47,16 @@ const init = async function() {
     });
     await models.Hobby.create({
         user_id: 1,
-        title: 'test',
-        content: 'api test',
+        title: 'Muscle',
+        content: 'Make you god',
+        good: 0,
+        bad: 0,
+        secret: false
+    });
+    await models.Hobby.create({
+        user_id: 1,
+        title: 'Tennis',
+        content: 'I wanna do it with you.',
         good: 0,
         bad: 0,
         secret: false

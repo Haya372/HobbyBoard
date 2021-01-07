@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HobbyDetails from '../views/HobbyDetails.vue'
 import EditHobby from '../views/EditHobby.vue'
+import LoginView from '../views/Login.vue'
+import PostGatherView from "../views/PostGather.vue"
+import ShowHobbyView from "../views/ShowHobby.vue"
+
 
 Vue.use(VueRouter)
 
@@ -30,7 +34,26 @@ const routes = [
     name: 'edithobby',
     component: EditHobby,
     props: true
-  }
+  },
+  {
+    path: '/login',
+    name: 'loginView',
+    component: LoginView,
+    props: true
+  },
+  {
+    path: '/postGather',
+    name: 'postGatherView',
+    component: PostGatherView,
+    props: true
+  },
+  {
+    path: '/showHobby',
+    name: 'showHobbyView',
+    component: ShowHobbyView,
+    props: true
+  },
+
 ]
 
 const router = new VueRouter({
