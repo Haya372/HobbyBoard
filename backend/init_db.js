@@ -20,17 +20,23 @@ const init = async function() {
         age: '22'
     });
     await models.Gather.create({
-        user_id: 2,
-        title: 'Hello',
-        content: 'World'
-    });
-    await models.Gather.create({
         user_id: 1,
         title: 'Good girl',
-        content: 'Good boy'
+        content: 'Good boy',
+        good: 0,
+        bad: 0,
+        secret: false
     });
     await models.Gather.create({
-        user_id: 1,
+        user_id: 2,
+        title: 'Hello',
+        content: 'World',
+        good: 0,
+        bad: 0,
+        secret: false
+    });
+    await models.Gather.create({
+        user_id: 3,
         title: 'test',
         content: 'test',
         good: 0,

@@ -6,6 +6,9 @@ import EditHobby from '../views/EditHobby.vue'
 import LoginView from '../views/Login.vue'
 import PostGatherView from "../views/PostGather.vue"
 import ShowHobbyView from "../views/ShowHobby.vue"
+import ShowGather from "../views/ShowGather.vue"
+import GatherDetails from '../views/GatherDetails.vue'
+import Search from "../views/Search"
 
 
 Vue.use(VueRouter)
@@ -53,6 +56,23 @@ const routes = [
     name: 'showHobbyView',
     component: ShowHobbyView,
     props: true
+  },
+  {
+    path: '/showGather',
+    name: 'showGatherView',
+    component: ShowGather,
+    props: true
+  },
+  {
+    path: '/gatherdetail/:id',
+    name: 'gatherdetail',
+    component: GatherDetails,
+    props: true
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
 
 ]
