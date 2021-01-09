@@ -37,18 +37,20 @@ export default {
             this.$emit('edited', this.content);
         },
         clickgood: function(){
-            this.axios.put('/api/good/'+this.content.id)
+            this.axios.put('/api/hobby/good/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
                     this.content.good++;
+                    console.log("200",res)
                 }else{
                     console.log('Server Error');
+                    console.log("not200",res)
                 }
             })
             .catch((e) => alert(e));
         },
         clickbad: function(){
-            this.axios.put('/api/bad/'+this.content.id)
+            this.axios.put('/api/hobby/bad/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
                     this.content.bad++;

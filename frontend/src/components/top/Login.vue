@@ -23,7 +23,27 @@
 <script>
 export default {
   name: 'Login',
+  data: function(){
+    return {
+      username:'',
+      password:'',
+    };
+  },
+  methods: {
+    login: function(){
+      this.axios.post('/api/users/login', {
+        username: this.username,
+        password: this.password,
+      }).then((res) => {
+        this.username = '',
+        this.password = '';
+        console.log("test",res)
+      }).catch((err) => {
+        alert(err);
+      });
+    }
   }
+}
 </script>
 
 <style scoped>

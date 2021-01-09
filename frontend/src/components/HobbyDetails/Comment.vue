@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         clickgood: function(){
-            this.axios.put('/api/good/' + this.id)
+            this.axios.put('/api/hobby/good/comment/' + this.id)
             .then((res) => {
                 if(res.status === 200){
                     this.comment.good++;
@@ -42,7 +42,7 @@ export default {
             .catch((e) => alert(e));
         },
         clickbad: function(){
-            this.axios.put('/api/bad/' + this.id)
+            this.axios.put('/api/hobby/bad/comment/' + this.id)
             .then((res) => {
                 if(res.status === 200){
                     this.comment.bad++;

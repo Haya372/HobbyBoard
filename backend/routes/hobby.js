@@ -98,4 +98,41 @@ router.get('/:id', function(req, res, next){
     crud_hobby.read_hobby(id, res);
 });
 
+router.put('/good/:id', async function(req, res, next){
+//更新したときにリセットされないようにするには？？
+    hg = await models.Hobby.findAll()
+    hg.forEach(function(h){
+        console.log("test1",h)
+    });
+
+    await models.Hobby.update({
+        good : req.body.good,
+    }, 
+        {
+            where : {
+                id : Number(req.params.id)
+            }
+        });
+    hg = await models.Hobby.findAll()
+    hg.forEach(function(h){
+        console.log("test2",h)
+    });
+
+    res.send(200);
+});
+
+router.put('/bad/:id', async function(req, res, next){
+
+    res.send(200);
+})
+
+router.put('/good/comment/:id', async function(req, res, next){
+    res.send(200);
+})
+
+router.put('/bad/comment/:id', async function(req, res, next){
+
+    res.send(200);
+})
+
 module.exports = router;
