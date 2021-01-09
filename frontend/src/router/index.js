@@ -31,7 +31,7 @@ const routes = [
     props: true
   },
   {
-    path: '/edithobby',
+    path: '/edithobby/:id',
     name: 'edithobby',
     component: EditHobby,
     props: true

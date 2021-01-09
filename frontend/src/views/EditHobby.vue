@@ -1,28 +1,38 @@
 <template>
-    <div class="edit">
-        <div class="title">
-            <p>タイトル</p>
-            <input type="text" v-model="item.title">
+    <div class="container">
+        <div class="card">
+            <h3 class="card-header">趣味投稿</h3>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="title">タイトル</label>
+                        <input type="text" class="form-control" name="title" id="title" placeholder="タイトル" v-model="item.title">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">内容</label>
+                        <textarea class="form-control" name="content" id="content" placeholder="内容" v-model="item.content"></textarea>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="is_secret" id="is_secret">
+                        <label class="custom-control-label" for="is_secret">匿名</label>
+                    </div>
+                    <input type="hidden" name="user_id" value="">
+                    <br>
+                    <button v-bind:disabled="isMovable" type="button" class="btn btn-primary" v-on:click="submit">投稿</button>
+                </form>
+            </div>
         </div>
-        <div class="content">
-            <p>内容</p>
-            <textarea class="content" v-model="item.content"></textarea>
-        </div>
-        <input type="checkbox" class="secret" v-model="item.secret">匿名<br/>
-        <router-link to="content">
-            <button v-bind:disabled="isMovable" v-on:click="submit">投稿</button>
-        </router-link>
     </div>
 </template>
 
 <script>
 export default {
     name: 'EditHobby',
-    props: {
-        hobby: {
-            type: Object,
-            default: function(){
-                return {
+    props: ["id"],
+    data: function(){
+        return {
+            hobby_id: this.$route.params.id,
+            item: {
                     id: -1,
                     user_id: this.user_id, // need to change
                     title: '',
@@ -30,17 +40,12 @@ export default {
                     good: 0,
                     bad: 0,
                     secret: false,
-                };
             }
-        }
-    },
-    data: function(){
-        return {
-            item: this.hobby
         };
     },
     computed: {
         isMovable: function(){
+            if(!this.item) return false;
             return (this.item.title.length == 0) || (this.item.content.length == 0);
         }
     },
@@ -75,32 +80,26 @@ export default {
                 });
             }
         }
+    },
+    mounted: function(){
+        if(this.hobby_id !== "new"){
+            this.axios.get('/api/hobby/' + this.hobby_id).then((res) => {
+                if(res.status === 200){
+                    this.item = res.data.hobby;
+                }
+            });
+        }
+    },
+    watch:{
+        item: function(newValue){
+            this.item = newValue;
+        }
     }
 }
 </script>
 
 <style scoped>
-.edit {
-    font-size: 23px;
-}
-.title {
-    font-size: 30px;
-}
-input {
-    width: 60%;
-    font-size: 30px;
-}
-.content{
-    font-size: 30px;
-}
-.content textarea{
-    width: 60%;
-    height: 15em;
-}
-.secret{
-    width: 3%;
-}
-button {
-    font-size: 25px;
+#content{
+    height: 20em;
 }
 </style>
