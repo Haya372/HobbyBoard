@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!--  -->
         <GatherDetail :detail="gather"></GatherDetail>
         <!-- dbにgatherコメント未実装 -->
         <!-- <CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList> -->
@@ -27,6 +28,7 @@ export default {
         // CommentList
     },
     data: function(){
+
         return {
             gather: {},
             testData: [],
@@ -35,9 +37,13 @@ export default {
             secret: false
         };
     },
+    computed: {
+
+    },
     mounted: function(){
         this.axios.get('/api/gather/lists')
         .then((res) => {
+            // console.log("確認用gatherdetail_id",gather_id)
             this.gather = res.data;
         }).catch((err) => {
             alert(err);
@@ -66,7 +72,7 @@ export default {
         onedited: function(newData){
             this.hobby = newData;
         }
-    }
+    },
 }
 </script>
 

@@ -38,7 +38,8 @@ export default {
             this.axios.put('/api/hobby/comment/good/' + this.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.comment.good++;
+                    console.log("確認",res)
+                    this.comment.good = res.data[0].good;
                 }else{
                     alert('Server Error');
                 }
@@ -49,7 +50,7 @@ export default {
             this.axios.put('/api/hobby/comment/bad/' + this.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.comment.bad++;
+                    this.comment.bad = res.data[0].bad;
                 }else{
                     alert('Server Error');
                 }
@@ -96,6 +97,6 @@ button:hover {
 
 i {
     color: rgb(255, 255, 255);
-    mmargin-right: 5px;
+    margin-right: 5px;
 }
 </style>
