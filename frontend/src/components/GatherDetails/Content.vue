@@ -1,28 +1,26 @@
 <template>
     <div class="content">
-        <div class="content">
-            <div class="title">
-                <h1>{{content.title}}</h1>
-                
-                <div class="editbutton">
-                    <router-link to="/edithobby" v-bind:gather="content">
-                    <i class="fas fa-edit"></i>編集
-                </router-link>
-                </div>
+        <div class="title">
+            <h1>{{content.title}}</h1>
+            
+            <div class="editbutton">
+                <router-link to="/edithobby" v-bind:gather="content">
+                <i class="fas fa-edit"></i>編集
+            </router-link>
             </div>
-            <div class="editor">投稿者： ダミー</div>
-            <p class="text">{{content.content}}</p>
-            <div class="reputation">
-                <div class="good">
-                    <button v-on:click="clickgood">
-                        <i class="far fa-thumbs-up"></i>いいね
-                    </button>：{{ content.good }}
-                </div>
-                <div class="bad">
-                    <button v-on:click="clickbad">
-                        <i class="far fa-thumbs-down"></i>よくないね
-                    </button>：{{ content.bad }}
-                </div>
+        </div>
+        <div class="editor">投稿者： ダミー</div>
+        <p class="text">{{content.content}}</p>
+        <div class="reputation">
+            <div class="good">
+                <button v-on:click="clickgood">
+                    <i class="far fa-thumbs-up"></i>いいね
+                </button>：{{ content.good }}
+            </div>
+            <div class="bad">
+                <button v-on:click="clickbad">
+                    <i class="far fa-thumbs-down"></i>よくないね
+                </button>：{{ content.bad }}
             </div>
         </div>
     </div>
@@ -66,7 +64,7 @@ export default {
             this.axios.put('/api/gather/bad/'+this.gatherinfo.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.bad = res.data[0].bad;
+                    this.content.bad = res.data.bad;
                 }else{
                     console.log('Server Error');
                 }

@@ -71,7 +71,6 @@ router.get('/delete/comments/:gather_id', async function(req, res, next){
 
 
 
-
 router.post('/:id', function(req, res, next){
     let gather_id = req.params.id;
     crud_GatherParticipant.participate_gather(gather_id, 3, res);
@@ -80,5 +79,132 @@ router.post('/:id', function(req, res, next){
 router.get('/lists', function(req, res, next){
     crud_gather.read_gather(res);
 });
+
+router.put('/good/:id', async function(req, res, next){
+    var good_cnt = 0
+    hg = await models.Gather.findOne({
+        where : {
+            id : Number(req.params.id)
+        }
+    }
+    )
+
+    console.log("test",hg.dataValues)
+
+    good_cnt = hg.dataValues.good + 1
+
+    await models.Gather.update({
+        good : good_cnt,
+    }, 
+        {
+            where : {
+                id : Number(req.params.id)
+            }
+        });
+    hg_t = await models.Gather.findOne({
+        where : {
+            id : Number(req.params.id)
+        }
+    })
+
+    res.status(200).send(hg_t);
+});
+
+router.put('/bad/:id', async function(req, res, next){
+    var bad_cnt = 0
+    hb = await models.Gather.findOne({
+        where : {
+            id : Number(req.params.id)
+        }
+    }
+    )
+
+    console.log("test",hb.dataValues)
+
+    bad_cnt = hb.dataValues.bad + 1
+
+    await models.Gather.update({
+        bad : bad_cnt,
+    }, 
+        {
+            where : {
+                id : Number(req.params.id)
+            }
+        });
+    hb_t = await models.Gather.findOne({
+        where : {
+            id : Number(req.params.id)
+        }
+    })
+
+    res.status(200).send(hb_t);
+})
+
+// router.put('/comment/good/:id', async function(req, res, next){
+//     const q_id = req.query.id
+//     var cnt = 0
+//     hcg = await models.GatherComment.findAll({
+//         where : {
+//             id : Number(req.params.id)
+//         }
+//     }
+//     )
+
+//     hcg.forEach(function(h){
+//         if (h.hobby_id == q_id){
+//             cnt = h.good + 1
+//         }
+//     });
+    
+//     await models.GatherComment.update({
+//         good : cnt,
+//     }, 
+//         {
+//             where : {
+//                 id : Number(req.params.id)
+//             }
+//         });
+//     hcg_t = await models.GatherComment.findAll({
+//         where : {
+//             id : Number(req.params.id)
+//         }
+//     })
+
+//     res.status(200).send(hcg_t);
+// })
+
+// router.put('/comment/bad/:id', async function(req, res, next){
+//     const q_id = req.query.id
+//     var cnt = 0
+//     hcb = await models.GatherComment.findAll({
+//         where : {
+//             id : Number(req.params.id)
+//         }
+//     }
+//     )
+
+//     hcb.forEach(function(h){
+//         if (h.hobby_id == q_id){
+//             cnt = h.good + 1
+//         }
+//     });
+    
+//     await models.GatherComment.update({
+//         good : cnt,
+//     }, 
+//         {
+//             where : {
+//                 id : Number(req.params.id)
+//             }
+//         });
+//     hcb_t = await models.GatherComment.findAll({
+//         where : {
+//             id : Number(req.params.id)
+//         }
+//     })
+
+//     res.status(200).send(hcb_t);
+// })
+
 
 module.exports = router;
