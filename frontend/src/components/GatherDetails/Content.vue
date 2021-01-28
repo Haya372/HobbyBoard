@@ -2,14 +2,14 @@
     <div class="content">
         <div class="title">
             <h1>{{content.title}}</h1>
-            <!--ユーザーの判別条件をv-ifでつける-->
+            
             <div class="editbutton">
-                <router-link v-bind:to="'/edithobby/' + this.content.id">
+                <router-link to="/edithobby" v-bind:gather="content">
                 <i class="fas fa-edit"></i>編集
             </router-link>
             </div>
         </div>
-        <div class="editor">投稿者： {{content.username}}</div>
+        <div class="editor">投稿者： ダミー</div>
         <p class="text">{{content.content}}</p>
         <div class="reputation">
             <div class="good">
@@ -33,8 +33,10 @@ export default {
         detail: Object
     },
     data: function(){
+        console.log("data")
         return {
-            content: this.detail
+            content: this.detail,
+            gatherinfo: this.$route.params
         };
     },
     methods: {
@@ -42,12 +44,16 @@ export default {
             this.content.title = 'change';
             this.$emit('edited', this.content);
         },
+        //need to change
         clickgood: function(){
-            this.axios.put('/api/hobby/good/'+this.content.id)
+            // console.log("contentid",this.gatherinfo.id)
+            this.axios.put('/api/gather/good/'+this.gatherinfo.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.good = res.data[0].good;
-                    // console.log("確認",res)
+                    this.content.good = res.data.good;
+                    console.log("clickgood")
+                    console.log("確認",res)
+                    console.log("data",res.data.good)
                 }else{
                     console.log('Server Error');
                 }
@@ -55,21 +61,22 @@ export default {
             .catch((e) => alert(e));
         },
         clickbad: function(){
-            this.axios.put('/api/hobby/bad/'+this.content.id)
+            this.axios.put('/api/gather/bad/'+this.gatherinfo.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.bad = res.data[0].bad;
+                    this.content.bad = res.data.bad;
                 }else{
                     console.log('Server Error');
                 }
             })
             .catch((e) => console.log(e));
-        }
+        },
     },
     watch: {
         detail: function(newValue){
-            this.content = newValue;
-            console.log("watch",this.content,"value",newValue)
+            const gatherdata = newValue.filter(g => g.id ===  Number(this.gatherinfo.id));
+            this.content = gatherdata[0]
+            // console.log("watch",this.content,"value",newValue)
         }
     }
 }
@@ -117,6 +124,7 @@ h1 {
 .good {
     margin-right: 20%;
 }
+
 
 button {
     border-radius: 15px;

@@ -100,4 +100,136 @@ router.get('/:id', function(req, res, next){
     crud_hobby.read_hobby(id, res);
 });
 
+router.put('/good/:id', async function(req, res, next){
+        const q_id = req.query.id
+        var cnt = 0
+        hg = await models.Hobby.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        }
+        )
+        
+        hg.forEach(function(h){
+            if (h.hobby_id == q_id){
+                cnt = h.good + 1
+            }
+        });
+        
+        await models.Hobby.update({
+            good : cnt,
+        }, 
+            {
+                where : {
+                    id : Number(req.params.id)
+                }
+            });
+        hg_t = await models.Hobby.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        })
+    
+        res.status(200).send(hg_t);
+    });
+    
+    router.put('/bad/:id', async function(req, res, next){
+        const q_id = req.query.id
+        var cnt = 0
+        hb = await models.Hobby.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        }
+        )
+        console.log("hb",hb)
+        hb.forEach(function(h){
+            if (h.hobby_id == q_id){
+                cnt = h.bad + 1
+            }
+        });
+        
+        await models.Hobby.update({
+            bad : cnt,
+        }, 
+            {
+                where : {
+                    id : Number(req.params.id)
+                }
+            });
+        hb_t = await models.Hobby.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        })
+    
+        res.status(200).send(hb_t);
+    })
+    
+    router.put('/comment/good/:id', async function(req, res, next){
+        const q_id = req.query.id
+        var cnt = 0
+        hcg = await models.HobbyComment.findAll({
+            where : {
+                id: Number(req.params.id)
+            }
+        }
+        )
+
+        hcg.forEach(function(h){
+            if (h.hobby_id == q_id){
+                cnt = h.good + 1
+            }
+        });
+        
+        await models.HobbyComment.update({
+            good : cnt,
+        }, 
+            {
+                where : {
+                    id: Number(req.params.id)
+                }
+            });
+        hcg_t = await models.HobbyComment.findAll({
+            where : {
+                id: Number(req.params.id)
+            }
+        })
+    
+        res.status(200).send(hcg_t);
+    })
+    
+    router.put('/comment/bad/:id', async function(req, res, next){
+        const q_id = req.query.id
+        var cnt = 0
+        hcb = await models.HobbyComment.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        }
+        )
+
+        hcb.forEach(function(h){
+            if (h.hobby_id == q_id){
+                cnt = h.good + 1
+            }
+        });
+        
+        await models.HobbyComment.update({
+            good : cnt,
+        }, 
+            {
+                where : {
+                    id : Number(req.params.id)
+                }
+            });
+        hcb_t = await models.HobbyComment.findAll({
+            where : {
+                id : Number(req.params.id)
+            }
+        })
+    
+        res.status(200).send(hcb_t);
+    })
+
 module.exports = router;

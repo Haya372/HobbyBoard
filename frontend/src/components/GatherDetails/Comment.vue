@@ -34,11 +34,11 @@ export default {
         };
     },
     methods: {
+        //need to change
         clickgood: function(){
             this.axios.put('/api/hobby/comment/good/' + this.id)
             .then((res) => {
                 if(res.status === 200){
-                    console.log("確認",res)
                     this.comment.good = res.data[0].good;
                 }else{
                     alert('Server Error');
