@@ -46,7 +46,8 @@ export default {
             this.axios.put('/api/hobby/good/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.good++;
+                    this.content.good = res.data[0].good;
+                    // console.log("確認",res)
                 }else{
                     console.log('Server Error');
                 }
@@ -57,7 +58,7 @@ export default {
             this.axios.put('/api/hobby/bad/'+this.content.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.bad++;
+                    this.content.bad = res.data[0].bad;
                 }else{
                     console.log('Server Error');
                 }
@@ -68,6 +69,7 @@ export default {
     watch: {
         detail: function(newValue){
             this.content = newValue;
+            console.log("watch",this.content,"value",newValue)
         }
     }
 }

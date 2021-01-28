@@ -1,36 +1,26 @@
 <template>
     <div class="content">
-        <div 
-            class="title"
-            v-for="gatherdetail in content" 
-            :key="gatherdetail.title"
-        >
-            <!-- この書き方やばそう -->
-            <div v-if="gatherdetail.id === Number(gatherinfo.id)">
-                <div>
-                    <h1>{{gatherdetail.title}}</h1>
-                    <!--ユーザーの判別条件をv-ifでつける-->
-                    <div class="editbutton">
-                        <router-link to="/postGather" v-bind:hobby="gatherdetail">
-                        <i class="fas fa-edit"></i>編集
-                    </router-link>
-                    </div>
-                </div>
-                <div class="editor">投稿者： ダミー(変更する必要あり)</div>
-                <p class="text">{{gatherdetail.content}}</p>
-                <div class="reputation">
-                    <div class="good">
-                        <button v-on:click="clickgood">
-                            <i class="far fa-thumbs-up"></i>いいね
-                        </button>：{{ gatherdetail.good }}
-                    </div>
-                    <div class="bad">
-                        <button v-on:click="clickbad">
-                            <i class="far fa-thumbs-down"></i>よくないね
-                        </button>：{{ gatherdetail.bad }}
-                    </div>
-                     <!-- <button v-on:click="show">確認用</button> -->
-                </div>
+        <div class="title">
+            <h1>{{content.title}}</h1>
+            
+            <div class="editbutton">
+                <router-link to="/edithobby" v-bind:gather="content">
+                <i class="fas fa-edit"></i>編集
+            </router-link>
+            </div>
+        </div>
+        <div class="editor">投稿者： ダミー</div>
+        <p class="text">{{content.content}}</p>
+        <div class="reputation">
+            <div class="good">
+                <button v-on:click="clickgood">
+                    <i class="far fa-thumbs-up"></i>いいね
+                </button>：{{ content.good }}
+            </div>
+            <div class="bad">
+                <button v-on:click="clickbad">
+                    <i class="far fa-thumbs-down"></i>よくないね
+                </button>：{{ content.bad }}
             </div>
         </div>
     </div>
@@ -43,6 +33,7 @@ export default {
         detail: Object
     },
     data: function(){
+        console.log("data")
         return {
             content: this.detail,
             gatherinfo: this.$route.params
@@ -55,10 +46,14 @@ export default {
         },
         //need to change
         clickgood: function(){
-            this.axios.put('/api/hobby/good/'+this.content.id)
+            // console.log("contentid",this.gatherinfo.id)
+            this.axios.put('/api/gather/good/'+this.gatherinfo.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.good++;
+                    this.content.good = res.data.good;
+                    console.log("clickgood")
+                    console.log("確認",res)
+                    console.log("data",res.data.good)
                 }else{
                     console.log('Server Error');
                 }
@@ -66,26 +61,22 @@ export default {
             .catch((e) => alert(e));
         },
         clickbad: function(){
-            this.axios.put('/api/hobby/bad/'+this.content.id)
+            this.axios.put('/api/gather/bad/'+this.gatherinfo.id)
             .then((res) => {
                 if(res.status === 200){
-                    this.content.bad++;
+                    this.content.bad = res.data.bad;
                 }else{
                     console.log('Server Error');
                 }
             })
             .catch((e) => console.log(e));
         },
-        
-        // show(){
-        //     this.content.id = this.gatherinfo.id
-        //     console.log("this.gatherinfo",this.gatherinfo)
-        //     console.log("this.content",this.content)
-        // }
     },
     watch: {
         detail: function(newValue){
-            this.content = newValue;
+            const gatherdata = newValue.filter(g => g.id ===  Number(this.gatherinfo.id));
+            this.content = gatherdata[0]
+            // console.log("watch",this.content,"value",newValue)
         }
     }
 }
