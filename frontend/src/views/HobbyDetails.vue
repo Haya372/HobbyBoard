@@ -1,13 +1,13 @@
 <template>
     <div class="HobbyDetail">
-        <Content v-bind:detail="hobby" v-on:edited="onedited"></Content>
-        <CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList>
+        <Content v-bind:detail="hobby" v-on:edited="onEdited"></Content>
+        <CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList>
         <div class="inputform">
             <input type="text" class="comment" v-model="comment">
             <div class="secret">
                 <input type="checkbox" v-model="secret">匿名
             </div>
-            <button class="submit" v-on:click="submitclick">
+            <button class="submit" v-on:click="submitClick">
                 <i class="far fa-paper-plane"></i>送信
             </button>
         </div>
@@ -28,7 +28,7 @@ export default {
     data: function(){
         return {
             hobby: {},
-            testData: [],
+            comments: [],
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false
@@ -38,13 +38,13 @@ export default {
         this.axios.get('/api/hobby/'+this.hobby_id)
         .then((res) => {
             this.hobby = res.data.hobby;
-            this.testData = res.data.comments;
+            this.comments = res.data.comments;
         }).catch((err) => {
             alert(err);
         });
     },
     methods: {
-        submitclick: function(){
+        submitClick: function(){
             if(!this.comment){
                 alert('コメントを入力してください');
                 return;
@@ -55,14 +55,14 @@ export default {
                 comment: this.comment,
                 secret: this.secret
             }).then((res) => {
-                this.testData = res.data;
+                this.comments = res.data;
                 this.comment = '';
                 this.secret = false;
             }).catch((err) => {
                 alert(err);
             });
         },
-        onedited: function(newData){
+        onEdited: function(newData){
             this.hobby = newData;
         }
     }
