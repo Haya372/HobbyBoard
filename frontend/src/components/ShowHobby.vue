@@ -22,10 +22,14 @@ export default {
   name: 'ShowHobby',
   data : function(){
    return {
-hobby_list : []
+      hobby_list : []
   }
   },
   mounted : function(){
+    console.log("testlocal",localStorage.username)
+    if(!localStorage.username){
+        this.$router.replace("/login")
+    }
     // I replace /api/hobby/lists with /api/gather/lists for test because I cannot find /api/hobby/lists. In the production environment gather -> hobby. 
     this.axios.get("api/gather/lists").then((res) => {
       this.hobby_list = res.data;

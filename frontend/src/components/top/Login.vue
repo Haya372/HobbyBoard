@@ -9,21 +9,61 @@
          <button>create</button>
          <p class="message">Already registered? <a href="#">Sign In</a></p>
        </form>
-       <form class="login-form">
-         <input type="text" placeholder="username"/>
-         <input type="password" placeholder="password"/>
-         <button>login</button>
+       <!-- <form class="login-form" @submit="test" action="/">
+         <input type="text" placeholder="username" v-model="username"/>
+         <input type="password" placeholder="password" v-model="password"/>
+         <button type="submit"> login</button>
          <p class="message">Not registered? <a href="#">Create an account</a></p>
-       </form>
+       </form> -->
+       <div class="login-form"> 
+         <input type="text" placeholder="username" v-model="username"/>
+         <input type="password" placeholder="password" v-model="password"/>
+         <button type="submit" @click="test"> login</button>
+         <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </div>
      </div>
+     <!-- <div>
+        <form @submit="test" action="/login">
+         <input type="text" placeholder="username" v-model="username"/>
+         <input type="password" placeholder="password" v-model="password"/>
+         <button type="submit"> login</button>
+       </form>
+     </div> -->
    </div>
+   <!-- <button v-on:click="test">test</button> -->
  </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
-  }
+    name: 'Login',
+    data: function(){
+      return {
+        username: "",
+        password: ""
+      }
+    },
+    methods:{
+      test: function(){
+        this.axios.post('/users/login',{
+          username: this.username,
+          password: this.password
+        }).then((res) => {
+            if(res.status === 200){
+              //よしなにデータを取っておけるらしい
+              localStorage.username = res.data.username
+              console.log("local",localStorage.username)
+              this.$router.replace("/")
+            }else{
+              console.log('Server Error');
+            }
+        }).catch((err) => {
+            alert(err);
+        });
+
+      }
+    }
+}
 </script>
 
 <style scoped>

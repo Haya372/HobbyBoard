@@ -1,18 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/search">Search</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/edithobby">Post Hobby</router-link> |
-      <router-link to="/postGather">Post Gather</router-link> |
-      <router-link to="/showHobby">Show Hobby</router-link> |
-      <router-link to="/login">Login</router-link>|
-      <router-link to="/showGather">Show Gather</router-link>
+    <div v-if="show">
+      <div id="nav">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/search">Search</router-link> |
+        <router-link to="/about">About</router-link> |
+        <router-link to="/edithobby">Post Hobby</router-link> |
+        <router-link to="/postGather">Post Gather</router-link> |
+        <router-link to="/showHobby">Show Hobby</router-link> |
+        <router-link to="/showGather">Show Gather</router-link>|
+        <router-link to="/logout">Logout</router-link> 
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  data: function(){
+      return {
+        show: Boolean
+      }
+    },
+  updated: function(){
+    // console.log("before",this.show)
+    if(!localStorage.username){
+      this.show = false
+    }
+    else{
+      this.show = true
+    }
+    // console.log("next",this.show)
+  },
+
+}
+</script>
 
 <style>
 #app {
@@ -25,6 +48,8 @@
 
 #nav {
   padding: 30px;
+  /* width: 85%;
+  float:left; */
 }
 
 #nav a {

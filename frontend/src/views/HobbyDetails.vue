@@ -35,6 +35,9 @@ export default {
         };
     },
     mounted: function(){
+        if(!localStorage.username){
+            this.$router.replace("/login")
+        }        
         this.axios.get('/api/hobby/'+this.hobby_id)
         .then((res) => {
             this.hobby = res.data.hobby;

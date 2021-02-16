@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import HobbyDetails from '../views/HobbyDetails.vue'
 import EditHobby from '../views/EditHobby.vue'
 import LoginView from '../views/Login.vue'
+import LogoutView from '../views/Logout.vue'
 import PostGatherView from "../views/PostGather.vue"
 import ShowHobbyView from "../views/ShowHobby.vue"
 import ShowGather from "../views/ShowGather.vue"
@@ -44,6 +45,12 @@ const routes = [
     name: 'loginView',
     component: LoginView,
     props: true
+  },
+  {
+    path: '/logout',
+    name: 'logoutView',
+    component: LogoutView,
+    props: true    
   },
   {
     path: '/postGather',

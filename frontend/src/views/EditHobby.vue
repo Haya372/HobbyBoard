@@ -39,6 +39,11 @@ export default {
             item: this.hobby
         };
     },
+    mounted : function(){
+        if(!localStorage.username){
+            this.$router.replace("/login")
+        }
+    },
     computed: {
         isMovable: function(){
             return (this.item.title.length == 0) || (this.item.content.length == 0);

@@ -11,6 +11,11 @@ export default {
  name : "ShowGatherView",
  components : {
     ShowGather
- }
+ },
+  mounted : function(){
+    if(!localStorage.username){
+        this.$router.replace("/login")
+    }
+  }
 }
 </script>

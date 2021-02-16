@@ -11,5 +11,10 @@ export default {
   components: {
         Search,
     },
+  mounted : function(){
+    if(!localStorage.username){
+        this.$router.replace("/login")
+    }
+  }
 }
 </script>

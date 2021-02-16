@@ -41,6 +41,9 @@ export default {
 
     },
     mounted: function(){
+        if(!localStorage.username){
+            this.$router.replace("/login")
+        }
         this.axios.get('/api/gather/lists')
         .then((res) => {
             // console.log("確認用gatherdetail_id",gather_id)

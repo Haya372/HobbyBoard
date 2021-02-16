@@ -11,7 +11,12 @@ export default {
  name : "ShowHobbyView",
  components : {
   ShowHobby
- }
+ },
+  mounted : function(){
+    if(!localStorage.username){
+        this.$router.replace("/login")
+    }
+  }
 }
 </script>
 
