@@ -9,12 +9,6 @@
          <button>create</button>
          <p class="message">Already registered? <a href="#">Sign In</a></p>
        </form>
-       <!-- <form class="login-form" @submit="test" action="/">
-         <input type="text" placeholder="username" v-model="username"/>
-         <input type="password" placeholder="password" v-model="password"/>
-         <button type="submit"> login</button>
-         <p class="message">Not registered? <a href="#">Create an account</a></p>
-       </form> -->
        <div class="login-form"> 
          <input type="text" placeholder="username" v-model="username"/>
          <input type="password" placeholder="password" v-model="password"/>
@@ -22,15 +16,8 @@
          <p class="message">Not registered? <a href="#">Create an account</a></p>
         </div>
      </div>
-     <!-- <div>
-        <form @submit="test" action="/login">
-         <input type="text" placeholder="username" v-model="username"/>
-         <input type="password" placeholder="password" v-model="password"/>
-         <button type="submit"> login</button>
-       </form>
-     </div> -->
+     <p>username/passeord: Ishii/pass,Mitomi/pass,Tanimoto/pass</p>
    </div>
-   <!-- <button v-on:click="test">test</button> -->
  </div>
 </template>
 
