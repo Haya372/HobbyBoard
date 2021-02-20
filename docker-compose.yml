@@ -17,10 +17,5 @@ services:
             MYSQL_ROOT_PASSWORD: 'password'
         ports:
             - 3306:3306
-    front_server:
-        container_name: front_server
-        build:
-            context: ./frontend
-        tty: true
-        ports: 
-            - 8080:8080
+        volumes: 
+            - ./mysql_data:/var/lib/mysql

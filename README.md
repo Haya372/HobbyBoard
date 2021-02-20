@@ -32,4 +32,7 @@ docker exec api_server npx sequelize db:migrate
 docker exec api_server node init_db.js
 ```
 でダミーのユーザーデータがデータベースに保存される  
-使い勝手はあんまりよくないらしいけどデータベースの初期化とかははsequelizeっていうORMでやってる
+使い勝手はあんまりよくないらしいけどデータベースの初期化とかははsequelizeっていうORMでやってる  
+
+※追記  
+docker-compose.ymlにvolumesを追記してmysqlコンテナの/var/lib/mysqlとを./mysql_dataを共有したので毎回初期化を行う必要がなくなった
