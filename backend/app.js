@@ -34,7 +34,6 @@ var sessionCheck = function(req, res, next) {
     next();
   } else {
     console.log("sessioncheck_redirect")
-    // 現状getをredirectしてそう→じゃあget内にloginにリダイレクトする処理を実装すればいいのでは？
     res.redirect('/login');
   }
 };
@@ -72,11 +71,6 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-app.set('trust proxy', 1)
-
-// app.listen('3000', () => {
-//   console.log('Application started');
-// });
 
 
 module.exports = app;
