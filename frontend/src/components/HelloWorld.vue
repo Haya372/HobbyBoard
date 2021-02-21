@@ -28,6 +28,9 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
     <button v-on:click="greeting">あいさつ</button>
+    <a href="/login">
+    <button @click="logout">ログアウトする！</button>
+    </a>
   </div>
 </template>
 
@@ -42,7 +45,17 @@ export default {
       this.axios.get('/test')
       .then((res) => alert(res.data))
       .catch((e) => alert(e))
-    }
+    },
+    logout: function(){
+      this.axios.put('/logout')
+      .then((res) => {
+      console.log("logout",res)
+      alert("ログアウトしました")
+      // this.$router.replace("/login")
+      })
+      .catch((e) => alert(e))
+    },
+
   }
 }
 </script>

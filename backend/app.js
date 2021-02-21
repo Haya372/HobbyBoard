@@ -3,13 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var gatherRouter = require('./routes/gather');
 var hobbyRouter = require('./routes/hobby');
-
+var loginRouter = require('./routes/login');
+var passport = require('passport');
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,7 +25,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+
+
+var sessionCheck = function(req, res, next) {
+  console.log("sessioncheck",req.session)
+  if (req.session.passport.user) {
+    console.log("sessioncheck:username",req.session.passport.user)
+    next();
+  } else {
+    console.log("sessioncheck_redirect")
+    // 現状getをredirectしてそう→じゃあget内にloginにリダイレクトする処理を実装すればいいのでは？
+    res.redirect('/login');
+  }
+};
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: false,
+}));
+
+// app.use('/login', loginRouter); 
+app.use('/', indexRouter, sessionCheck);
 app.use('/users', usersRouter);
 app.use('/api/gather', gatherRouter);
 app.use('/api/hobby', hobbyRouter);
@@ -46,5 +71,12 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+app.set('trust proxy', 1)
+
+// app.listen('3000', () => {
+//   console.log('Application started');
+// });
+
 
 module.exports = app;
