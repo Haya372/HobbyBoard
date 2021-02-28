@@ -16,7 +16,7 @@ module.exports.lunr_promise = async function() {
         this.field("content");
         this.use(lunr.multiLanguage("en", "ja"));
         
-         gathers.forEach(function (gather) {
+        gathers.forEach(function (gather) {
             this.add(gather.dataValues);
             
         }, this);
