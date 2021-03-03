@@ -1,13 +1,9 @@
 <template>
-    <RecycleScroller
-        class="scroller"
-        :items="list"
-        :item-size="32"
-        key-field="id"
-        v-slot="{ item }"
-    >
-    <Comment v-bind:item="item" v-bind:id="id"></Comment>
-    </RecycleScroller>
+    <div id="lists">
+        <div class="list" v-for="item in list" :key="item.id">
+        <Comment class="comment" v-bind:item="item" v-bind:id="id"></Comment>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -34,22 +30,10 @@ export default {
 </script>
 
 <style scoped>
-.scroller{
+.lists{
     text-align: left;
-    margin-left: 20%;
 }
-
-.info{
-    display: flex;
+.comment{
+    height: 10%;
 }
-
-.user{
-    width: 30%;
-}
-
-.good .bad{
-    width: 15%;
-    margin-right: 10%;
-}
-
 </style>

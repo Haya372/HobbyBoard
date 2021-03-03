@@ -20,7 +20,7 @@ export default {
       }
     },
   created: function(){
-    this.axios.get('/login')
+    /*this.axios.get('/login')
     .then((res) => {
       if (res.status == 200){
         console.log("test",res)
@@ -33,7 +33,7 @@ export default {
       alert("ログインしてください")
       this.show = false
       this.$router.replace("/login")
-      });
+      });*/
   }
 }
 </script>

@@ -4,6 +4,10 @@ const crud_hobby = require('../crud/hobby');
 const search = require("../search/hobby");
 const models = require("../models");
 
+router.get('/lists', function(req, res, next){
+    crud_hobby.read_hobby_list(res);
+});
+
 router.get("/search/:keyword", async  function(req, res, next){
     // Get keyword from request parameter. 
     let keyword = req.params.keyword;

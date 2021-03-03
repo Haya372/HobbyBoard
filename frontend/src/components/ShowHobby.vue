@@ -27,7 +27,7 @@ hobby_list : []
   },
   mounted : function(){
     // I replace /api/hobby/lists with /api/gather/lists for test because I cannot find /api/hobby/lists. In the production environment gather -> hobby. 
-    this.axios.get("api/gather/lists").then((res) => {
+    this.axios.get("/api/hobby/lists").then((res) => {
       this.hobby_list = res.data;
       }).catch((err) =>{
        console.log(err);
