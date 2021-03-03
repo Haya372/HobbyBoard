@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-/*var sessionCheck = function(req, res, next) {
+var sessionCheck = function(req, res, next) {
   console.log("sessioncheck",req.session)
   if (req.session.passport.user) {
     console.log("sessioncheck:username",req.session.passport.user)
@@ -39,10 +39,10 @@ app.use(session({
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: false,
-}));*/
+}));
 
 // app.use('/login', loginRouter); 
-//app.use('/', indexRouter, sessionCheck);
+app.use('/', indexRouter, sessionCheck);
 app.use('/api/gather', gatherRouter);
 app.use('/api/hobby', hobbyRouter);
 
