@@ -1,35 +1,14 @@
 <template>
     <div class="HobbyDetail">
-        <div class="title">
-            <!-- あとでアイコンに変更-->
-            <router-link to="/showHobby">戻る</router-link>
-            <h1>{{hobby.title}}</h1>
-        </div>
-        <div class="content">
-            <div class="editor">投稿者： {{hobby.username}}</div>
-            <p class="text">{{hobby.content}}</p>
-            <div class="reputation">
-                <div class="reputation-button">
-                    <button v-on:click="clickgood">
-                        <i class="far fa-thumbs-up"></i>
-                    </button>：{{ hobby.good }}
-                </div>
-                <div class="reputation-button">
-                    <button v-on:click="clickbad">
-                        <i class="far fa-thumbs-down"></i>
-                    </button>：{{ hobby.bad }}
-                </div>
-            </div>
-        </div>
-        <div class="comments" v-if="testData.length"><CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList></div>
-		<div class="comments" v-else>まだコメントはありません。</div>
+        <Content v-bind:detail="hobby" v-on:edited="onEdited"></Content>
+        <CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList>
         <div class="inputform">
 			コメント：
             <input type="text" class="comment" v-model="comment">
             <div class="secret">
                 <input type="checkbox" v-model="secret">匿名
             </div>
-            <button class="submit" v-on:click="submitclick">
+            <button class="submit" v-on:click="submitClick">
                 <i class="far fa-paper-plane"></i>送信
             </button>
         </div>
@@ -48,7 +27,7 @@ export default {
     data: function(){
         return {
             hobby: {},
-            testData: [],
+            comments: [],
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false
@@ -58,13 +37,13 @@ export default {
         this.axios.get('/api/hobby/'+this.hobby_id)
         .then((res) => {
             this.hobby = res.data.hobby;
-            this.testData = res.data.comments;
+            this.comments = res.data.comments;
         }).catch((err) => {
             alert(err);
         });
     },
     methods: {
-        submitclick: function(){
+        submitClick: function(){
             if(!this.comment){
                 alert('コメントを入力してください');
                 return;
@@ -75,14 +54,14 @@ export default {
                 comment: this.comment,
                 secret: this.secret
             }).then((res) => {
-                this.testData = res.data;
+                this.comments = res.data;
                 this.comment = '';
                 this.secret = false;
             }).catch((err) => {
                 alert(err);
             });
         },
-        onedited: function(newData){
+        onEdited: function(newData){
             this.hobby = newData;
         },
         clickgood: function(){
