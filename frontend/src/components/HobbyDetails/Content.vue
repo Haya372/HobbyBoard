@@ -4,7 +4,7 @@
             <h1>{{content.title}}</h1>
             <!--ユーザーの判別条件をv-ifでつける-->
             <div class="editbutton">
-                <router-link to="/edithobby" v-bind:hobby="content">
+                <router-link v-bind:to="'/edithobby/' + this.content.id">
                 <i class="fas fa-edit"></i>編集
             </router-link>
             </div>
