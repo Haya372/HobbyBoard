@@ -1,13 +1,14 @@
 <template>
     <div class="HobbyDetail">
-        <Content v-bind:detail="hobby" v-on:edited="onedited"></Content>
-        <CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList>
+        <Content v-bind:detail="hobby" v-on:edited="onEdited"></Content>
+        <CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList>
         <div class="inputform">
+			コメント：
             <input type="text" class="comment" v-model="comment">
             <div class="secret">
                 <input type="checkbox" v-model="secret">匿名
             </div>
-            <button class="submit" v-on:click="submitclick">
+            <button class="submit" v-on:click="submitClick">
                 <i class="far fa-paper-plane"></i>送信
             </button>
         </div>
@@ -15,20 +16,18 @@
 </template>
 
 <script>
-import Content from '@/components/HobbyDetails/Content.vue'
 import CommentList from '@/components/HobbyDetails/CommentList.vue'
 
 export default {
     name: 'HobbyDetails',
     props: ["id"],
     components: {
-        Content,
         CommentList
     },
     data: function(){
         return {
             hobby: {},
-            testData: [],
+            comments: [],
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false
@@ -38,13 +37,13 @@ export default {
         this.axios.get('/api/hobby/'+this.hobby_id)
         .then((res) => {
             this.hobby = res.data.hobby;
-            this.testData = res.data.comments;
+            this.comments = res.data.comments;
         }).catch((err) => {
             alert(err);
         });
     },
     methods: {
-        submitclick: function(){
+        submitClick: function(){
             if(!this.comment){
                 alert('コメントを入力してください');
                 return;
@@ -55,15 +54,38 @@ export default {
                 comment: this.comment,
                 secret: this.secret
             }).then((res) => {
-                this.testData = res.data;
+                this.comments = res.data;
                 this.comment = '';
                 this.secret = false;
             }).catch((err) => {
                 alert(err);
             });
         },
-        onedited: function(newData){
+        onEdited: function(newData){
             this.hobby = newData;
+        },
+        clickgood: function(){
+            this.axios.put('/api/hobby/good/'+this.hobby.id)
+            .then((res) => {
+                if(res.status === 200){
+                    this.hobby.good = res.data[0].good;
+                    // console.log("確認",res)
+                }else{
+                    console.log('Server Error');
+                }
+            })
+            .catch((e) => alert(e));
+        },
+        clickbad: function(){
+            this.axios.put('/api/hobby/bad/'+this.hobby.id)
+            .then((res) => {
+                if(res.status === 200){
+                    this.hobby.bad = res.data[0].bad;
+                }else{
+                    console.log('Server Error');
+                }
+            })
+            .catch((e) => console.log(e));
         }
     }
 }
@@ -72,11 +94,13 @@ export default {
 <style scoped>
 .inputform{
     display: flex;
-    margin-left: 20%;
+    margin-left: 5%;
+	margin-left: 5%;
+	font-size: 24px;
 }
 .comment {
     text-align: left;
-    width: 60%;
+    width: 75%;
 }
 .secret{
     margin-left: 10px;
@@ -97,5 +121,57 @@ button:hover {
 i {
     color: rgb(255, 255, 255);
     margin-right: 5px;
+}
+.title{
+    display: flex;
+    border-bottom: solid;
+    border-top: solid;
+    border-color: #3b4242;
+    border-width: 2px;
+    align-items: baseline;
+    padding-top: 5px;
+    padding-bottom: 5px;
+	padding-left: 3%;
+	text-align: left;
+}
+.title h1{
+    float: right;
+    width: 70%;
+    font-weight: bold;
+	margin-left: 30px;
+}
+.content{
+    align-items: baseline;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.editor{
+    font-size: 18px;
+    text-align: left;
+    color: #3b4242;
+}
+p{
+    font-size: 24px;
+    text-align: left;
+}
+.reputation {
+    display: flex;
+}
+.reputation .reputation-button{
+    padding-right: 20px;
+}
+.comments{
+	height: 600px;
+	overflow-y: scroll;
+	margin-left: 3%;
+    margin-right: 3%;
+	padding-left: 3%;
+	padding-right: 3%;
+	border: double;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 24px;
 }
 </style>

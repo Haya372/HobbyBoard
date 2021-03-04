@@ -1,25 +1,25 @@
 <template>
     <div class="comment">
-        <div class="info">
-            <div class="user" v-if="item.secret">
-                匿名ユーザー
-            </div>
-            <div class="user" v-else>
-                {{ comment.username }}
-            </div>
-            <div class="good">
+        <div class="user" v-if="item.secret">
+            匿名ユーザー
+        </div>
+        <div class="user" v-else>
+            {{ comment.username }}
+        </div>
+        <div class="text">
+            {{ comment.comment }}
+        </div>
+        <div class="reputation">
+            <div class="reputation-button">
                 <button v-on:click="clickgood">
-                    <i class="far fa-thumbs-up"></i>いいね
+                    <i class="far fa-thumbs-up"/>
                 </button>：{{ comment.good }}
             </div>
-            <div class="bad">
+            <div class="reputation-button">
                 <button v-on:click="clickbad">
-                    <i class="far fa-thumbs-up"></i>よくないね
+                    <i class="far fa-thumbs-up"/>
                 </button>：{{ comment.bad }}
             </div>
-        </div>
-        <div class="comment">
-            {{ comment.comment }}
         </div>
     </div>
 </template>
@@ -67,20 +67,22 @@ export default {
 </script>
 
 <style scoped>
-.info{
-    display: flex;
+.comment{
+    border-bottom: solid;
+    border-color: #3b4242;
+    border-width: 1px;
+    margin-top: 5px;
+    padding-bottom: 5px;
 }
-
 .user{
-    width: 30%;
+    font-size: 18px;
+    text-align: left;
+    color: #3b4242;
 }
 
-.good .bad{
-    width: 15%;
-}
-
-.good {
-    margin-right: 10%;
+.text{
+    font-size: 24px;
+    text-align: left;
 }
 
 button {
@@ -93,6 +95,13 @@ button {
 
 button:hover {
     background-color: #008d4e;
+}
+
+.reputation {
+    display: flex;
+}
+.reputation .reputation-button{
+    padding-right: 20px;
 }
 
 i {

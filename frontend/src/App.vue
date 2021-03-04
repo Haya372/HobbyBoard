@@ -4,7 +4,7 @@
       <router-link to="/">home</router-link> |
       <router-link to="/search">Search</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link to="/edithobby">Post Hobby</router-link> |
+      <router-link to="/edithobby/new">Post Hobby</router-link> |
       <router-link to="/postGather">Post Gather</router-link> |
       <router-link to="/showHobby">Show Hobby</router-link> |
       <router-link to="/showGather">Show Gather</router-link>

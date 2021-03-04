@@ -4,13 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
-var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var gatherRouter = require('./routes/gather');
 var hobbyRouter = require('./routes/hobby');
-var loginRouter = require('./routes/login');
 var passport = require('passport');
 var app = express();
 
@@ -46,7 +43,6 @@ app.use(session({
 
 // app.use('/login', loginRouter); 
 app.use('/', indexRouter, sessionCheck);
-app.use('/users', usersRouter);
 app.use('/api/gather', gatherRouter);
 app.use('/api/hobby', hobbyRouter);
 
