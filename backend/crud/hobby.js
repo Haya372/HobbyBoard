@@ -21,6 +21,16 @@ const read_hobby = async function(hobby_id, res){
     });
 }
 
+const read_hobby_list = async function(res){
+    let hobbies = await models.Hobby.findAll();
+    let items = [];
+    hobbies.forEach((hobby) => {
+        items.push(hobby.dataValues);
+    });
+    res.status(200).send(items);
+}
+
 module.exports = {
-    read_hobby
+    read_hobby,
+    read_hobby_list
 }

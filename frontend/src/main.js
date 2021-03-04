@@ -2,13 +2,17 @@ import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import { RecycleScroller } from 'vue-virtual-scroller'
+import VueVirtualScroller from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 import router from './router'
 import 'bootstrap/dist/css/bootstrap.css' // add
 import 'bootstrap-vue/dist/bootstrap-vue.css' // add
 
 Vue.use(VueAxios, axios);
-Vue.component('RecycleScroller', RecycleScroller);
+Vue.use(VueVirtualScroller);
+Vue.component('RecycleScroller', VueVirtualScroller.RecycleScroller);
+Vue.component('recyclescroller', VueVirtualScroller.RecycleScroller);
+Vue.component('recyclescrolleritem', VueVirtualScroller.RecycleScrollerItem);
 
 Vue.config.productionTip = false
 
