@@ -1,7 +1,28 @@
 <template>
     <div class="HobbyDetail">
-        <Content v-bind:detail="hobby" v-on:edited="onEdited"></Content>
-        <CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList>
+        <div class="title">
+            <!-- あとでアイコンに変更-->
+            <router-link to="/showHobby">戻る</router-link>
+            <h1>{{hobby.title}}</h1>
+        </div>
+        <div class="content">
+            <div class="editor">投稿者： {{hobby.username}}</div>
+            <p class="text">{{hobby.content}}</p>
+            <div class="reputation">
+                <div class="reputation-button">
+                    <button v-on:click="clickgood">
+                        <i class="far fa-thumbs-up"></i>
+                    </button>：{{ hobby.good }}
+                </div>
+                <div class="reputation-button">
+                    <button v-on:click="clickbad">
+                        <i class="far fa-thumbs-down"></i>
+                    </button>：{{ hobby.bad }}
+                </div>
+            </div>
+        </div>
+        <div class="comments" v-if="comments.length"><CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList></div>
+		<div class="comments" v-else>まだコメントはありません。</div>
         <div class="inputform">
 			コメント：
             <input type="text" class="comment" v-model="comment">
