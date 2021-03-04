@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="comments" v-if="testData.length"><CommentList v-bind:list="testData" v-bind:id="this.hobby.id"></CommentList></div>
+        <div class="comments" v-if="comments.length"><CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList></div>
 		<div class="comments" v-else>まだコメントはありません。</div>
         <div class="inputform">
 			コメント：
