@@ -8,6 +8,7 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var gatherRouter = require('./routes/gather');
 var hobbyRouter = require('./routes/hobby');
+var userRouter = require('./routes/user');
 var passport = require('passport');
 var app = express();
 
@@ -45,7 +46,7 @@ app.use(session({
 app.use('/', indexRouter, sessionCheck);
 app.use('/api/gather', gatherRouter);
 app.use('/api/hobby', hobbyRouter);
-
+app.use('/api/user', userRouter);
 // test api
 app.get('/test', (req, res) => {
     res.send('Hello World');
