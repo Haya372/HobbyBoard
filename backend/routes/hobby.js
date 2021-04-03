@@ -8,6 +8,11 @@ router.get('/lists', function(req, res, next){
     crud_hobby.read_hobby_list(res);
 });
 
+router.get('/lists/:user_id', function(req, res, next){
+    var user_id = req.params.user_id;
+    crud_hobby.read_hobby_list_by_user(user_id, res);
+});
+
 router.get("/search/:keyword", async  function(req, res, next){
     // Get keyword from request parameter. 
     let keyword = req.params.keyword;

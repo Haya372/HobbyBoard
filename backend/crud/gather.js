@@ -51,7 +51,17 @@ const read_gather = async function(res){
     res.status(200).send(items);
 }
 
+const read_gather_by_user = async function(user_id, res){
+    let gathers = await models.Gather.findAll({ where: { use_id: user_id } });
+    let items = [];
+    gathers.forEach((gather) => {
+        items.push(gather.dataValues);
+    });
+    res.status(200).send(items);
+}
+
 module.exports = {
     delete_timeout_gather,
     read_gather,
+    read_gather_by_user
 }

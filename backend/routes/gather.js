@@ -80,6 +80,12 @@ router.get('/lists', function(req, res, next){
     crud_gather.read_gather(res);
 });
 
+router.get('/lists/:user_id', function(req, res, next){
+    let user_id = req.params.user_id;
+    console.log(user_id)
+    crud_gather.read_gather(user_id, res);
+});
+
 router.put('/good/:id', async function(req, res, next){
     var good_cnt = 0
     hg = await models.Gather.findOne({

@@ -31,15 +31,25 @@
         <br/>
         <br/>
         <h2>過去の投稿</h2>
+        <details>
+            <summary>趣味</summary>
+            <HobbyList :user_id="id"/>
+        </details>
+        <details>
+            <summary>募集</summary>
+            <GatherList :user_id="id"/>
+        </details>
     </div>
 </template>
 
 <script>
+import HobbyList from '../components/Mypage/HobbyList'
+import GatherList from '../components/Mypage/GatherList'
 
 export default {
     name: 'Home',
     components: {
-        
+        HobbyList, GatherList
     },
     data: function (){
         return {
@@ -115,5 +125,9 @@ export default {
 }
 table {
     width: 800px;
+}
+details {
+    text-align: left;
+    width: 770px;
 }
 </style>
