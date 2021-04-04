@@ -6,13 +6,19 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 
-router.get('/login', function(req, res, next) {
+router.get('/login', async function(req, res, next) {
   console.log('test')
   console.log("session_send",req.session)
   if(!req.session.passport.user){
     res.send(500)
   }else{
-    res.status(200).send(req.session.passport.user);
+    let users = await models.User.findOne({
+      where : {
+        username: req.session.passport.user.username,
+        password: req.session.passport.user.password
+      }
+    });
+    res.status(200).send(users);
   }
 });
 
@@ -34,7 +40,7 @@ passport.use(new LocalStrategy(
     } else {
       // Success and return user information.
       console.log("success")
-      return done(null, { username: username, password: password});
+      return done(null, {username: username, password: password});
     }
   }
 ));

@@ -26,7 +26,7 @@ export default {
       if (res.status == 200){
         console.log("test",res)
         this.show = true
-        sessionStorage.setItem("username",res.data.username)
+        sessionStorage.setItem("id",res.data.id)
       }else{
         console.log("test2",res)
       }

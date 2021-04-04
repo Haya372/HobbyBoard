@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <router-link to="/showHobby">一覧へ戻る</router-link><br>
                     <!-- よしなに変えてください -->
-                    <div v-if="current_uname === hobby.username">
+                    <div v-if="current_uid === hobby.user_id">
                         <router-link to="/">編集</router-link><br>
                         <div v-on:click="deleteHobby">
                             <router-link to="/">削除</router-link>
@@ -63,7 +63,7 @@ export default {
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false,
-            current_uname: sessionStorage.getItem('username')
+            current_uid: Number(sessionStorage.getItem('id'))
         };
     },
     mounted: function(){
