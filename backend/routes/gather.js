@@ -5,6 +5,11 @@ const crud_gather = require('../crud/gather');
 const search = require("../search/gather");
 const models = require("../models");
 
+router.post('/', function(req, res, next){
+    let gather = req.body;
+    crud_gather.post_gather(gather, res);
+});
+
 router.get("/search/:keyword", async  function(req, res, next){
     // Get keyword from request parameter. 
     let keyword = req.params.keyword;

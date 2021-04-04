@@ -51,7 +51,16 @@ const read_gather = async function(res){
     res.status(200).send(items);
 }
 
+const post_gather = function(new_gather, res){
+    models.Gather.create(new_gather).then(function(gather){
+        res.status(200).send(gather);
+    }).catch(function(e){
+        res.sendStatus(500);
+    });
+}
+
 module.exports = {
     delete_timeout_gather,
     read_gather,
+    post_gather
 }

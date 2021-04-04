@@ -96,7 +96,10 @@ router.get('/delete/comments/:id', async function(req, res, next){
     res.send(200)
 });
 
-
+router.post('/', function(req, res, next){
+    let hobby = req.body;
+    crud_hobby.post_hobby(hobby, res);
+});
 
 
 router.get('/:id', function(req, res, next){
