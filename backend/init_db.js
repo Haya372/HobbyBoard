@@ -75,6 +75,14 @@ const init = async function() {
         bad: 0,
         secret: false
     });
+    await models.GatherComment.create({
+        user_id: 2,
+        gather_id: 1,
+        comment: 'hello',
+        good: 0,
+        bad: 0,
+        secret: false
+    });
 }
 
 init();
