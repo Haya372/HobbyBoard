@@ -7,7 +7,8 @@
       <router-link to="/edithobby/new">Post Hobby</router-link> |
       <router-link to="/postGather">Post Gather</router-link> |
       <router-link to="/showHobby">Show Hobby</router-link> |
-      <router-link to="/showGather">Show Gather</router-link>
+      <router-link to="/showGather">Show Gather</router-link> |
+      <router-link to="/Mypage">Mypage</router-link>
     </div>
     <router-view/>
   </div>

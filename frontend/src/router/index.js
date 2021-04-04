@@ -9,6 +9,7 @@ import ShowHobbyView from "../views/ShowHobby.vue"
 import ShowGather from "../views/ShowGather.vue"
 import GatherDetails from '../views/GatherDetails.vue'
 import Search from "../views/Search"
+import Mypage from "../views/Mypage"
 
 
 Vue.use(VueRouter)
@@ -74,7 +75,11 @@ const routes = [
     name: 'Search',
     component: Search
   },
-
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    component: Mypage
+  }
 ]
 
 const router = new VueRouter({
