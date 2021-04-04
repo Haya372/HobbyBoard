@@ -30,7 +30,16 @@ const read_hobby_list = async function(res){
     res.status(200).send(items);
 }
 
+const post_hobby = function(new_hobby, res){
+    models.Hobby.create(new_hobby).then(function(hobby){
+        res.status(200).send(hobby);
+    }).catch(function(e){
+        res.sendStatus(500);
+    });
+}
+
 module.exports = {
     read_hobby,
-    read_hobby_list
+    read_hobby_list,
+    post_hobby
 }

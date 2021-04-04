@@ -52,9 +52,16 @@ export default {
     methods: {
         submit: function(){
             if(this.item.id === -1){
-                this.axios.post('/api/submit/hobby', this.item).then((res) => {
+                this.axios.post('/api/hobby', {
+                    user_id: 3, // need to change
+                    title: this.item.title,
+                    content: this.item.content,
+                    good: this.item.good,
+                    bad: this.item.bad,
+                    secret: this.item.secret
+                }).then((res) => {
                     if(res.status === 200){
-                        alert('OK'); // need to change
+                        this.$router.replace('/hobbydetail/' + res.data.id);
                     }else{
                         alert('Server Error');
                     }
