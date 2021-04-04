@@ -238,17 +238,20 @@ router.put('/good/:id', async function(req, res, next){
 
     router.get('/content/delete/:hobby_id', async function(req, res, next){
         //依存関係の解消のためにコメントを削除
-        hc = await models.HobbyComment.destroy({
-            where : {
-                id : Number(req.params.hobby_id)
-            }
+        let hc = await models.HobbyComment.findAll()
+        hc.forEach(async(h) => {
+            await h.destroy({
+                where : {
+                    id : Number(req.params.hobby_id)
+                }
             });
+        });
 
         await models.Hobby.destroy({
             where : {
                 id: Number(req.params.hobby_id)
             }
-            });
+        });
         console.log("delete_hobby")
         res.send(200)
     });

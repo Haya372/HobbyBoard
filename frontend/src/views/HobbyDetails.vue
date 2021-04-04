@@ -20,12 +20,12 @@
                     </p>
                     <div class="reputation">
                         <div class="reputation-button">
-                            <button v-on:click="clickgood">
+                            <button v-on:click="clickGood">
                                 <i class="far fa-thumbs-up"></i>
                             </button>：{{ hobby.good }}
                         </div>
                         <div class="reputation-button">
-                            <button v-on:click="clickbad">
+                            <button v-on:click="clickBad">
                                 <i class="far fa-thumbs-down"></i>
                             </button>：{{ hobby.bad }}
                         </div>
