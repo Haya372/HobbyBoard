@@ -236,4 +236,29 @@ router.put('/good/:id', async function(req, res, next){
         res.status(200).send(hcb_t);
     })
 
+    router.get('/content/delete/:hobby_id', async function(req, res, next){
+        console.log("test_delete")
+        console.log("param",req.params)
+        //依存関係の解消のためにコメントを削除
+        const hc = await models.HobbyComment.findAll({
+            where : {
+                id : Number(req.params.hobby_id)
+            }
+            });
+        await hc.destroy()
+
+        await models.Hobby.destroy({
+            where : {
+                id: Number(req.params.hobby_id)
+            }
+            });
+        // hc = await models.Hobby.findAll()
+        // hs.forEach(function(h){
+        //     console.log(h.dataValues)
+        // });
+        console.log("delete_hobby")
+        
+        res.send(200)
+    });
+
 module.exports = router;

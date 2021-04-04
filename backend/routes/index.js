@@ -12,7 +12,7 @@ router.get('/login', function(req, res, next) {
   if(!req.session.passport.user){
     res.send(500)
   }else{
-    res.send(200)
+    res.status(200).send(req.session.passport.user);
   }
 });
 

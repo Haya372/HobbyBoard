@@ -3,7 +3,13 @@
         <div class="content">
             <div class="card">
                 <div class="card-body">
-                    <router-link to="/showHobby">一覧へ戻る</router-link>
+                    <router-link to="/showHobby">一覧へ戻る</router-link><br>
+                    <!-- よしなに変えて -->
+                    <div v-if="current_uname === hobby.username">
+                        <router-link to="/">編集</router-link><br>
+                        <router-link to="/">削除</router-link>
+                        <button v-on:click="deleteHobby">test</button>
+                    </div>
                     <h2 class="card-title">{{hobby.title}}</h2>
                     <h6 class="card-subtitle mb-2 text-muted" v-if="hobby.secret">投稿者 : 匿名ユーザー</h6>
                     <h6 class="card-subtitle mb-2 text-muted" v-else>投稿者 : {{hobby.username}}</h6>
@@ -54,7 +60,8 @@ export default {
             comments: [],
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
-            secret: false
+            secret: false,
+            current_uname: sessionStorage.getItem('username')
         };
     },
     mounted: function(){
@@ -110,7 +117,25 @@ export default {
                 }
             })
             .catch((e) => console.log(e));
-        }
+        },
+        deleteHobby: function(){
+            this.axios.get('/api/hobby/content/delete/'+this.hobby.id)
+            .then((res) => {
+                if(res.status == 200){
+                    console.log("削除")
+                }
+            })
+            .catch((e) => alert(e))
+        },
+        // postHobbyComment: function(){
+        //     this.axios.post('/api/hobby/add/comments/'+this.hobby.id)
+        //     .then((res) => {
+        //         if(res.status == 200){
+        //             console.log("削除")
+        //         }
+        //     })
+        //     .catch((e) => alert(e))
+        // },
     }
 }
 </script>
