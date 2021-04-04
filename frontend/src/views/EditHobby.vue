@@ -53,7 +53,7 @@ export default {
         submit: function(){
             if(this.item.id === -1){
                 this.axios.post('/api/hobby', {
-                    user_id: 3,
+                    user_id: 3, // need to change
                     title: this.item.title,
                     content: this.item.content,
                     good: this.item.good,
