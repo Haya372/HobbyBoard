@@ -33,24 +33,19 @@ router.get("/search/:keyword", async  function(req, res, next){
 
 });
 
-router.post('/add/comments', async function(req, res, next){
-    hs = await models.HobbyComment.findAll()
-    hs.forEach(function(h){
-        console.log(h.dataValues)
-    });
-    await models.HobbyComment.create({
+router.post('/add/comments', function(req, res, next){
+    models.HobbyComment.create({
         hobby_id : Number(req.body.hobby_id),
         user_id : Number(req.body.user_id),
         comment : req.body.comment,
         good : 0,
         bad : 0,
         secret : req.body.secret
+    }).then(function(){
+        crud_hobby.read_hobby(Number(req.body.hobby_id), res);
+    }).catch(function(){
+        res.sendStatus(500);
     });
-    hs = await models.HobbyComment.findAll()
-    hs.forEach(function(h){
-        console.log(h.dataValues)
-    });
-    res.send(200)
 });
 
 router.put('/update/comments/:id', async function(req, res, next){

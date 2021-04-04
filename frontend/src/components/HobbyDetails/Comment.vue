@@ -1,24 +1,22 @@
 <template>
-    <div class="comment">
-        <div class="user" v-if="item.secret">
-            匿名ユーザー
-        </div>
-        <div class="user" v-else>
-            {{ comment.username }}
-        </div>
-        <div class="text">
-            {{ comment.comment }}
-        </div>
-        <div class="reputation">
-            <div class="reputation-button">
-                <button v-on:click="clickgood">
-                    <i class="far fa-thumbs-up"/>
-                </button>：{{ comment.good }}
-            </div>
-            <div class="reputation-button">
-                <button v-on:click="clickbad">
-                    <i class="far fa-thumbs-up"/>
-                </button>：{{ comment.bad }}
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted" v-if="comment.secret">匿名ユーザー</h6>
+            <h6 class="card-subtitle mb-2 text-muted" v-else>{{comment.username}}</h6>
+            <p class="card-text">
+                {{comment.comment}}
+            </p>
+            <div class="reputation">
+                <div class="reputation-button">
+                    <button v-on:click="clickgood">
+                        <i class="far fa-thumbs-up"></i>
+                    </button>：{{ comment.good }}
+                </div>
+                <div class="reputation-button">
+                    <button v-on:click="clickbad">
+                        <i class="far fa-thumbs-down"></i>
+                    </button>：{{ comment.bad }}
+                </div>
             </div>
         </div>
     </div>
@@ -67,24 +65,6 @@ export default {
 </script>
 
 <style scoped>
-.comment{
-    border-bottom: solid;
-    border-color: #3b4242;
-    border-width: 1px;
-    margin-top: 5px;
-    padding-bottom: 5px;
-}
-.user{
-    font-size: 18px;
-    text-align: left;
-    color: #3b4242;
-}
-
-.text{
-    font-size: 24px;
-    text-align: left;
-}
-
 button {
     border-radius: 15px;
     font-weight: bold;
@@ -107,5 +87,13 @@ button:hover {
 i {
     color: rgb(255, 255, 255);
     margin-right: 5px;
+}
+
+.card-subtitle {
+    text-align: left;
+}
+
+.card {
+    background-color: rgb(236, 236, 236);
 }
 </style>

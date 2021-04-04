@@ -1,37 +1,40 @@
 <template>
     <div class="HobbyDetail">
-        <div class="title">
-            <!-- あとでアイコンに変更-->
-            <router-link to="/showHobby">戻る</router-link>
-            <h1>{{hobby.title}}</h1>
-        </div>
         <div class="content">
-            <div class="editor">投稿者： {{hobby.username}}</div>
-            <p class="text">{{hobby.content}}</p>
-            <div class="reputation">
-                <div class="reputation-button">
-                    <button v-on:click="clickgood">
-                        <i class="far fa-thumbs-up"></i>
-                    </button>：{{ hobby.good }}
-                </div>
-                <div class="reputation-button">
-                    <button v-on:click="clickbad">
-                        <i class="far fa-thumbs-down"></i>
-                    </button>：{{ hobby.bad }}
+            <div class="card">
+                <div class="card-body">
+                    <router-link to="/showHobby">一覧へ戻る</router-link>
+                    <h2 class="card-title">{{hobby.title}}</h2>
+                    <h6 class="card-subtitle mb-2 text-muted" v-if="hobby.secret">投稿者 : 匿名ユーザー</h6>
+                    <h6 class="card-subtitle mb-2 text-muted" v-else>投稿者 : {{hobby.username}}</h6>
+                    <p class="card-text">
+                        {{hobby.content}}
+                    </p>
+                    <div class="reputation">
+                        <div class="reputation-button">
+                            <button v-on:click="clickgood">
+                                <i class="far fa-thumbs-up"></i>
+                            </button>：{{ hobby.good }}
+                        </div>
+                        <div class="reputation-button">
+                            <button v-on:click="clickbad">
+                                <i class="far fa-thumbs-down"></i>
+                            </button>：{{ hobby.bad }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="comments" v-if="comments.length"><CommentList v-bind:list="comments" v-bind:id="this.hobby.id"></CommentList></div>
 		<div class="comments" v-else>まだコメントはありません。</div>
-        <div class="inputform">
-			コメント：
-            <input type="text" class="comment" v-model="comment">
-            <div class="secret">
-                <input type="checkbox" v-model="secret">匿名
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" v-model="comment">
+            <div class="input-group-append">
+                <button class="btn btn-success" type="button" v-on:click="submitClick">送信</button>
             </div>
-            <button class="submit" v-on:click="submitClick">
-                <i class="far fa-paper-plane"></i>送信
-            </button>
+            <div class="secret">
+                <input type="checkbox" v-model="secret">匿名でコメント
+            </div>
         </div>
     </div>
 </template>
@@ -75,7 +78,7 @@ export default {
                 comment: this.comment,
                 secret: this.secret
             }).then((res) => {
-                this.comments = res.data;
+                this.comments = res.data.comments;
                 this.comment = '';
                 this.secret = false;
             }).catch((err) => {
@@ -186,13 +189,18 @@ p{
 .comments{
 	height: 600px;
 	overflow-y: scroll;
-	margin-left: 3%;
-    margin-right: 3%;
-	padding-left: 3%;
-	padding-right: 3%;
-	border: double;
-	margin-top: 10px;
+	margin-left: 6%;
+    margin-right: 6%;
 	margin-bottom: 10px;
 	font-size: 24px;
+    margin-top: 10px;
+    background-color: rgb(236, 236, 236);
+}
+.input-group {
+    padding-left: 5%;
+    padding-right: 5%;
+}
+a {
+    float: left;
 }
 </style>
