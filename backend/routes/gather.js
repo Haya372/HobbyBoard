@@ -146,21 +146,30 @@ router.put('/bad/:id', async function(req, res, next){
     res.status(200).send(hb_t);
 })
 
-router.get('/content/delete/:gather_id', async function(req, res, next){
-    //依存関係の解消のためにコメントを削除
-    gc = await models.GatherComment.destroy({
-        where : {
-            id : Number(req.params.hobby_id)
-        }
+router.delete('/content/delete/:gather_id', async function(req, res, next){
+    await models.sequelize.transaction(async function(tx) {
+        await models.GatherComment.destroy({
+            where : {
+                id : Number(req.params.gather_id)
+            },
+            
+            transaction: tx
         });
 
-    await models.Gather.destroy({
-        where : {
-            id: Number(req.params.hobby_id)
-        }
+        await models.Gather.destroy({
+            where : {
+                id: Number(req.params.gather_id)
+            },
+            transaction: tx
         });
-    console.log("delete_gather")
-    res.send(200)
+    }).then(() => {
+        await tx.commit()
+        res.send(200)
+    }).catch((err) => {
+        console.log(err)
+        await tx.rollback()
+        res.send(500)
+    })
 });
 
 // router.put('/comment/good/:id', async function(req, res, next){
