@@ -6,22 +6,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 
-router.get('/login', async function(req, res, next) {
-  console.log('test')
-  console.log("session_send",req.session)
-  if(!req.session.passport.user){
-    res.send(500)
-  }else{
-    let users = await models.User.findOne({
-      where : {
-        username: req.session.passport.user.username,
-        password: req.session.passport.user.password
-      }
-    });
-    res.status(200).send(users);
-  }
-});
-
 passport.use(new LocalStrategy(
   async(username, password, done) => {
 
@@ -40,14 +24,14 @@ passport.use(new LocalStrategy(
     } else {
       // Success and return user information.
       console.log("success")
-      return done(null, {username: username, password: password});
+      console.log(users.dataValues)
+      return done(null, {uid: users.dataValues.id, username: username, password: password});
     }
   }
 ));
 
 passport.serializeUser((user, done) => {
   console.log('Serialize ...',user);
-
   done(null, user);
 });
 
@@ -59,14 +43,22 @@ passport.deserializeUser((user, done) => {
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.post('/',
-  passport.authenticate('local',
-    {
-      failureRedirect : '/login',
-      successRedirect : '/'
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err)
     }
-  )
-);
+    if (!user) {
+      return res.sendstatus(401).send(info)
+    }
+    req.login(user, (err) => {
+      if (err) {
+        return next(err)
+      }
+      return res.sendstatus(200).json(user)
+    })
+  })(req, res, next)
+})
 
 router.put('/logout', (req, res) => {
   req.session.passport.user = undefined;
