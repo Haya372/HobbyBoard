@@ -3,7 +3,15 @@
         <div class="content">
             <div class="card">
                 <div class="card-body">
-                    <router-link to="/showHobby">一覧へ戻る</router-link>
+                    <router-link to="/showHobby">一覧へ戻る</router-link><br>
+                    <!-- よしなに変えてください -->
+                    <div v-if="current_uid === hobby.user_id">
+                        <router-link to="/">編集</router-link><br>
+                        <div v-on:click="deleteHobby">
+                            <router-link to="/">削除</router-link>
+                        </div>
+                    <!--              -->
+                    </div>
                     <h2 class="card-title">{{hobby.title}}</h2>
                     <h6 class="card-subtitle mb-2 text-muted" v-if="hobby.secret">投稿者 : 匿名ユーザー</h6>
                     <h6 class="card-subtitle mb-2 text-muted" v-else>投稿者 : {{hobby.username}}</h6>
@@ -12,12 +20,12 @@
                     </p>
                     <div class="reputation">
                         <div class="reputation-button">
-                            <button v-on:click="clickgood">
+                            <button v-on:click="clickGood">
                                 <i class="far fa-thumbs-up"></i>
                             </button>：{{ hobby.good }}
                         </div>
                         <div class="reputation-button">
-                            <button v-on:click="clickbad">
+                            <button v-on:click="clickBad">
                                 <i class="far fa-thumbs-down"></i>
                             </button>：{{ hobby.bad }}
                         </div>
@@ -54,7 +62,8 @@ export default {
             comments: [],
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
-            secret: false
+            secret: false,
+            current_uid: Number(sessionStorage.getItem('id'))
         };
     },
     mounted: function(){
@@ -88,7 +97,7 @@ export default {
         onEdited: function(newData){
             this.hobby = newData;
         },
-        clickgood: function(){
+        clickGood: function(){
             this.axios.put('/api/hobby/good/'+this.hobby.id)
             .then((res) => {
                 if(res.status === 200){
@@ -100,7 +109,7 @@ export default {
             })
             .catch((e) => alert(e));
         },
-        clickbad: function(){
+        clickBad: function(){
             this.axios.put('/api/hobby/bad/'+this.hobby.id)
             .then((res) => {
                 if(res.status === 200){
@@ -110,6 +119,15 @@ export default {
                 }
             })
             .catch((e) => console.log(e));
+        },
+        deleteHobby: function(){
+            this.axios.delete('/api/hobby/content/delete/'+this.hobby.id)
+            .then((res) => {
+                if(res.status == 200){
+                    console.log("削除")
+                }
+            })
+            .catch((e) => alert(e))
         }
     }
 }

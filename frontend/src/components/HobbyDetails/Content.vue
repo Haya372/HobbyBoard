@@ -30,7 +30,7 @@ export default {
     },
     data: function(){
         return {
-            content: this.detail
+            content: this.detail,
         };
     },
     methods: {
@@ -43,7 +43,6 @@ export default {
             .then((res) => {
                 if(res.status === 200){
                     this.content.good = res.data[0].good;
-                    // console.log("確認",res)
                 }else{
                     console.log('Server Error');
                 }
@@ -60,6 +59,15 @@ export default {
                 }
             })
             .catch((e) => console.log(e));
+        },
+        deletehobby: function(){
+            this.axios.delete('/api/hobby/content/delete')
+            .then((res) => {
+                if(res.status == 200){
+                    console.log("削除")
+                }
+            })
+            .catch((e) => alert(e))
         }
     },
     watch: {

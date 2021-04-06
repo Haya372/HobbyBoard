@@ -146,6 +146,32 @@ router.put('/bad/:id', async function(req, res, next){
     res.status(200).send(hb_t);
 })
 
+router.delete('/content/delete/:gather_id', async function(req, res, next){
+    await models.sequelize.transaction(async function(tx) {
+        await models.GatherComment.destroy({
+            where : {
+                id : Number(req.params.gather_id)
+            },
+            
+            transaction: tx
+        });
+
+        await models.Gather.destroy({
+            where : {
+                id: Number(req.params.gather_id)
+            },
+            transaction: tx
+        });
+    }).then(() => {
+        await tx.commit()
+        res.send(200)
+    }).catch((err) => {
+        console.log(err)
+        await tx.rollback()
+        res.send(500)
+    })
+});
+
 // router.put('/comment/good/:id', async function(req, res, next){
 //     const q_id = req.query.id
 //     var cnt = 0
