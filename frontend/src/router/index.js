@@ -10,15 +10,15 @@ import ShowGather from "../views/ShowGather.vue"
 import GatherDetails from '../views/GatherDetails.vue'
 import Search from "../views/Search"
 import Mypage from "../views/Mypage"
-
-
+import Store from '../store/index'
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'home',
+    component: Home,
+    meta: { requiresAuth: true }
   },
   {
     path: '/about',
@@ -44,7 +44,7 @@ const routes = [
     path: '/login',
     name: 'loginView',
     component: LoginView,
-    props: true
+    props: true,
   },
   {
     path: '/postGather',
@@ -87,5 +87,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth) && !Store.state.auth.userId) {
+    next({ path: '/login' });
+  } else {
+    next();
+  }
+});
 
 export default router
