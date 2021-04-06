@@ -50,8 +50,8 @@ export default {
       this.axios.put('/logout')
       .then((res) => {
       console.log("logout",res)
+      this.$store.dispatch("logout")
       alert("ログアウトしました")
-      // this.$router.replace("/login")
       })
       .catch((e) => alert(e))
     },

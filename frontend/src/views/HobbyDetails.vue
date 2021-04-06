@@ -6,9 +6,9 @@
                     <router-link to="/showHobby">一覧へ戻る</router-link><br>
                     <!-- よしなに変えてください -->
                     <div v-if="current_uid === hobby.user_id">
-                        <router-link to="/">編集</router-link><br>
+                        <router-link :to="`/edithobby/${hobby_id}`">編集</router-link><br>
                         <div v-on:click="deleteHobby">
-                            <router-link to="/">削除</router-link>
+                            <router-link to="/showHobby">削除</router-link>
                         </div>
                     <!--              -->
                     </div>
@@ -63,7 +63,7 @@ export default {
             hobby_id: this.$route.params.id,  // need to change
             comment: '',
             secret: false,
-            current_uid: Number(sessionStorage.getItem('id'))
+            current_uid: Number(this.$store.state.userId)
         };
     },
     mounted: function(){

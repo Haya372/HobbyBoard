@@ -9,9 +9,9 @@
          <button>create</button>
          <p class="message">Already registered? <a href="#">Sign In</a></p>
        </form>
-       <form class="login-form" method="POST" action="/">
-         <input type="text" placeholder="username" name="username"/>
-         <input type="password" placeholder="password" name="password"/>
+       <form class="login-form" v-on:submit.prevent="login">
+         <input type="text" placeholder="username" v-model="user.username"/>
+         <input type="password" placeholder="password" v-model="user.password"/>
          <button type="submit" value="Try Auth">login</button>
          <p class="message">Not registered? <a href="#">Create an account</a></p>
        </form>
@@ -23,7 +23,34 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      user: {}
+    }
+  },
+  methods: {
+    login (){
+    this.axios.post('/login', this.user)
+    .then((res) => {
+      if (res.status == 200){
+        console.log("test",res.data)
+        this.$store.dispatch("auth", {
+          userId: res.data.uid,
+        })
+        this.$router.replace("/").catch(() => {});
+      }else{
+        alert("エラー")
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      alert("入力が誤っています")
+      });
+    }
   }
+  }
+
+
 </script>
 
 <style scoped>
