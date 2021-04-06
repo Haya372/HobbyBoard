@@ -121,7 +121,7 @@ export default {
             .catch((e) => console.log(e));
         },
         deleteHobby: function(){
-            this.axios.get('/api/hobby/content/delete/'+this.hobby.id)
+            this.axios.delete('/api/hobby/content/delete/'+this.hobby.id)
             .then((res) => {
                 if(res.status == 200){
                     console.log("削除")

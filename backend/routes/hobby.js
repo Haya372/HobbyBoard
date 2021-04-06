@@ -236,24 +236,29 @@ router.put('/good/:id', async function(req, res, next){
         res.status(200).send(hcb_t);
     })
 
-    router.get('/content/delete/:hobby_id', async function(req, res, next){
-        //依存関係の解消のためにコメントを削除
-        let hc = await models.HobbyComment.findAll()
-        hc.forEach(async(h) => {
-            await h.destroy({
+    router.delete('/content/delete/:hobby_id', async function(req, res, next){
+        await models.sequelize.transaction(async function(tx) {
+            await models.HobbyComment.destroy({
                 where : {
                     id : Number(req.params.hobby_id)
-                }
+                },
+                transaction: tx
             });
-        });
-
-        await models.Hobby.destroy({
-            where : {
-                id: Number(req.params.hobby_id)
-            }
-        });
-        console.log("delete_hobby")
-        res.send(200)
+    
+            await models.Hobby.destroy({
+                where : {
+                    id: Number(req.params.hobby_id)
+                },
+                transaction: tx
+            });
+        }).then(() => {
+            await tx.commit()
+            res.send(200)
+        }).catch((err) => {
+            console.log(err)
+            await tx.rollback()
+            res.send(500)
+        })
     });
 
 module.exports = router;
