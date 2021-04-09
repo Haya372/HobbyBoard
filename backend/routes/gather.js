@@ -162,10 +162,10 @@ router.delete('/content/delete/:gather_id', async function(req, res, next){
             },
             transaction: tx
         });
-    }).then(() => {
+    }).then(async() => {
         await tx.commit()
         res.send(200)
-    }).catch((err) => {
+    }).catch(async(err) => {
         console.log(err)
         await tx.rollback()
         res.send(500)
